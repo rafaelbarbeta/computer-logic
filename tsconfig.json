@@ -9,6 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -28,8 +29,11 @@
         "./src/*"
       ],
       "@components/*": [
-        "./src/components"
-      ]
+        "./src/components/*"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
     }
   },
   "include": [
