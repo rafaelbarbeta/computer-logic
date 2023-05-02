@@ -9,7 +9,7 @@ type useExpressionProps = {
 export function resolveExpression({ expression }: useExpressionProps) {
   const precedenceOrder = {
     "[A-Z]": /^(?<data>[A-Z])$/,
-    "¬x": /^(?<op>¬)\[?(?<data>[\w])\]?$/g,
+    "¬x": /^(?<op>¬)\[?(?<data>[\w])\]?$/,
     "x.x": /([\w]+[\w])/g, //! TODO: Tratar erro de exceções como ¬xx ou ¬x¬x, dizendo para não omitir AND
     "∧": /(?<=\(|^)(?:¬?\[?\w+\]?\]?)(?:(?<op>[∧·])¬?\[?\w+\]?\]?)+(?=\)|$)/g,
     "∨": /∨/g,
@@ -48,7 +48,14 @@ export function resolveExpression({ expression }: useExpressionProps) {
     values.push(...binaryValues.map((binaryValue) => parseInt(binaryValue[i])));
   }
 
+  let securityWhileFlag = 0;
   while (Object.keys(result).length < separateExpression.length) {
+    securityWhileFlag++;
+    if (securityWhileFlag > separateExpression.length) {
+      console.warn("WARN: WHILE LOOPING EXCEEDED!!!", separateExpression);
+      break;
+    }
+
     for (const [operation, regex] of Object.entries(precedenceOrder)) {
       separateExpression.forEach((exp, i) => {
         const matches = regex.exec(exp);

@@ -2,7 +2,7 @@ import { MatchType, ResultType, VariablesType } from "@@types/expression";
 
 export function resolveOperation(
   result: ResultType,
-  auxExpressions: string[],
+  separateExpression: string[],
   variables: VariablesType
 ) {
   function resolveUnaryOperations(info: MatchType) {
@@ -11,27 +11,27 @@ export function resolveOperation(
     if (!data) return;
 
     if (!op) {
-      const dataIndex = auxExpressions.indexOf(data);
+      const dataIndex = separateExpression.indexOf(data);
       const variablesCount = Object.keys(variables).length;
 
       result[data] = variables[data];
 
-      for (let i = variablesCount; i < auxExpressions.length; i++) {
-        auxExpressions[i] = auxExpressions[i].replaceAll(
+      for (let i = variablesCount; i < separateExpression.length; i++) {
+        separateExpression[i] = separateExpression[i].replaceAll(
           data,
           `[${dataIndex}]`
         );
       }
     } else {
-      const dataLetter = auxExpressions[Number(data)];
+      const dataLetter = separateExpression[Number(data)];
       result[`${op}${dataLetter}`] = variables[dataLetter].map((variable) =>
         variable === 0 ? 1 : 0
       );
 
-      const strIndex = auxExpressions.indexOf(str);
+      const strIndex = separateExpression.indexOf(str);
 
-      for (let i = strIndex; i < auxExpressions.length; i++) {
-        auxExpressions[i] = auxExpressions[i].replaceAll(
+      for (let i = strIndex; i < separateExpression.length; i++) {
+        separateExpression[i] = separateExpression[i].replaceAll(
           str,
           i === strIndex ? `${op}${dataLetter}` : `[${strIndex}]`
         );
@@ -43,7 +43,7 @@ export function resolveOperation(
     const { op, str } = info;
 
     const datas = str.split(op!).map((str) => str.replace(/\D/g, ""));
-    const dataExps = datas.map((data) => auxExpressions[Number(data)]);
+    const dataExps = datas.map((data) => separateExpression[Number(data)]);
 
     const strFinal = dataExps.join(op);
 
@@ -60,10 +60,10 @@ export function resolveOperation(
       }
     }
 
-    const strIndex = auxExpressions.indexOf(str);
+    const strIndex = separateExpression.indexOf(str);
 
-    for (let i = strIndex; i < auxExpressions.length; i++) {
-      auxExpressions[i] = auxExpressions[i].replace(
+    for (let i = strIndex; i < separateExpression.length; i++) {
+      separateExpression[i] = separateExpression[i].replace(
         str,
         i === strIndex ? `${strFinal}` : `[${strIndex}]`
       );
@@ -75,7 +75,7 @@ export function resolveOperation(
   function resolveParenthesisOperations(info: MatchType) {
     const { data, op, str } = info;
 
-    const dataExp = auxExpressions[Number(data)];
+    const dataExp = separateExpression[Number(data)];
 
     let dataIndex = Number(data);
 
@@ -84,25 +84,28 @@ export function resolveOperation(
         variable === 0 ? 1 : 0
       );
 
-      dataIndex = auxExpressions.indexOf(str);
+      dataIndex = separateExpression.indexOf(str);
     }
 
-    for (let i = dataIndex; i < auxExpressions.length; i++) {
+    for (let i = dataIndex; i < separateExpression.length; i++) {
       const isFirstOccurrence = i === dataIndex && op === "¬";
       const changeValue = isFirstOccurrence
         ? `${op}(${dataExp})`
         : `[${dataIndex}]`;
 
-      auxExpressions[i] = auxExpressions[i].replaceAll(str, changeValue);
+      separateExpression[i] = separateExpression[i].replaceAll(
+        str,
+        changeValue
+      );
     }
   }
 
   function resolveUniqueIndexOperations(info: MatchType) {
     const { data } = info;
 
-    const dataExp = auxExpressions[Number(data)];
+    const dataExp = separateExpression[Number(data)];
 
-    auxExpressions[Number(data) + 1] = `(${dataExp})`;
+    separateExpression[Number(data) + 1] = `(${dataExp})`;
     result[`(${dataExp})`] = result[dataExp];
   }
 
