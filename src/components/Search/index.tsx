@@ -1,7 +1,7 @@
 "use client";
 
+import { resolveExpression } from "@utils/resolveExpression";
 import { ChevronRight } from "lucide-react";
-
 import { Fira_Code } from "next/font/google";
 import { KeyboardEvent } from "react";
 import { Button } from "../Button";
@@ -75,6 +75,15 @@ function handleInputEntry(e: KeyboardEvent) {
   });
 }
 
+function handleResultExpression() {
+  const input = document.querySelector(".search") as HTMLInputElement;
+  const expression = input.value.toUpperCase() ?? "";
+
+  const { result } = resolveExpression({ expression });
+
+  console.warn(result);
+}
+
 export function Search() {
   return (
     <div className={`${firaCode.className} flex justify-center w-full`}>
@@ -85,7 +94,7 @@ export function Search() {
         onKeyUp={handleInputEntry}
         onKeyPress={handleInputEntry}
       />
-      <Button className="rounded-s-none">
+      <Button className="rounded-s-none" onClick={handleResultExpression}>
         <ChevronRight size={32} />
       </Button>
     </div>

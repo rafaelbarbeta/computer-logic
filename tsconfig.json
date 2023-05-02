@@ -34,6 +34,12 @@
       "@public/*": [
         "./public/*"
       ],
+      "@@types/*": [
+        "./src/types/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
     }
   },
   "include": [
