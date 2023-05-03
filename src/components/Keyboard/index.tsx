@@ -13,9 +13,19 @@ export function Keyboard() {
     const start = input.selectionStart ?? 0;
     const end = input.selectionEnd ?? 0;
 
-    input.value = input.value.slice(0, start) + key + input.value.slice(end);
-    input.focus();
-    input.selectionStart = input.selectionEnd = start + key.length;
+    if (key === "delete") {
+      input.value = input.value.slice(0, start - 1) + input.value.slice(end);
+      input.focus();
+      input.selectionStart = input.selectionEnd = start - 1;
+    } else if (key === "<" || key === ">") {
+      input.focus();
+      input.selectionStart = input.selectionEnd =
+        key === "<" ? start - 1 : start + 1;
+    } else {
+      input.value = input.value.slice(0, start) + key + input.value.slice(end);
+      input.focus();
+      input.selectionStart = input.selectionEnd = start + key.length;
+    }
   }
 
   return (
@@ -129,10 +139,10 @@ export function Keyboard() {
             className="brightness-0 invert pointer-events-none"
           />
         </Key>
-        <Key onClick={handleKeyPress} value="arrow-left" actionKey>
+        <Key onClick={handleKeyPress} value="<" actionKey>
           <ArrowLeft />
         </Key>
-        <Key onClick={handleKeyPress} value="arrow-right" actionKey>
+        <Key onClick={handleKeyPress} value=">" actionKey>
           <ArrowRight />
         </Key>
         <Key onClick={handleKeyPress} value="delete" actionKey>
