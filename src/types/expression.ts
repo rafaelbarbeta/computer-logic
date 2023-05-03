@@ -14,3 +14,8 @@ export type EvaluateExpressionType = {
   variables: VariablesType;
   separateExpression: string[];
 };
+
+export type ExpressionContextType = {
+  resolveExpression: (expression: string) => Promise<void>;
+  result: ResultType;
+};

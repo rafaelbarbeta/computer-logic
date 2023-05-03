@@ -10,7 +10,7 @@ export function resolveExpression({ expression }: useExpressionProps) {
   const precedenceOrder = {
     "[A-Z]": /^(?<data>[A-Z])$/,
     "¬x": /^(?<op>¬)\[?(?<data>[\w])\]?$/,
-    "x.x": /([\w]+[\w])/g, //! TODO: Tratar erro de exceções como ¬xx ou ¬x¬x, dizendo para não omitir AND
+    "x.x": /([\w]+[\w])/g,
     "∧": /(?<=\(|^)(?:¬?\[?\w+\]?\]?)(?:(?<op>[∧·])¬?\[?\w+\]?\]?)+(?=\)|$)/g,
     "∨": /∨/g,
     "+": /\+/g,

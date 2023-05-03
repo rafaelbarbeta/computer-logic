@@ -1,4 +1,5 @@
-import { Menu } from "@/components/Menu";
+import { ExpressionContextProvider } from "@/contexts/ExpressionContext";
+import { Menu } from "@components/Menu";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -17,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <Menu />
-        {children}
+        <ExpressionContextProvider>
+          <Menu />
+          {children}
+        </ExpressionContextProvider>
       </body>
     </html>
   );

@@ -28,11 +28,14 @@
       "@/*": [
         "./src/*"
       ],
-      "@components/*": [
-        "./src/components/*"
-      ],
       "@public/*": [
         "./public/*"
+      ],
+      "@contexts/*": [
+        "./src/contexts/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
       ],
       "@@types/*": [
         "./src/types/*"
