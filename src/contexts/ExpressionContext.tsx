@@ -20,6 +20,7 @@ export function ExpressionContextProvider({
   children,
 }: ExpressionContextProviderProps) {
   const [result, setResult] = useState<ResultType>({});
+  const [separateExpression, setSeparateExpression] = useState([""]);
 
   async function resolveExpression(expression: string) {
     const precedenceOrder = {
@@ -103,10 +104,13 @@ export function ExpressionContextProvider({
     }
 
     setResult(result);
+    setSeparateExpression(separateExpression);
   }
 
   return (
-    <ExpressionContext.Provider value={{ resolveExpression, result }}>
+    <ExpressionContext.Provider
+      value={{ resolveExpression, result, separateExpression }}
+    >
       {children}
     </ExpressionContext.Provider>
   );

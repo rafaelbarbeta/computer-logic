@@ -18,4 +18,5 @@ export type EvaluateExpressionType = {
 export type ExpressionContextType = {
   resolveExpression: (expression: string) => Promise<void>;
   result: ResultType;
+  separateExpression: string[];
 };
