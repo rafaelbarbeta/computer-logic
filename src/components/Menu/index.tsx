@@ -1,4 +1,10 @@
-import { Calculator, HelpCircle, Home, Settings } from "lucide-react";
+import {
+  Calculator,
+  HelpCircle,
+  Home,
+  Settings,
+  WholeWord,
+} from "lucide-react";
 import { Button } from "../Button";
 
 export function Menu() {
@@ -7,8 +13,11 @@ export function Menu() {
       <Button href="/" onlyIcon>
         <Home size={32} />
       </Button>
-      <Button href="/calculator" onlyIcon>
+      <Button href="/table" onlyIcon>
         <Calculator size={32} />
+      </Button>
+      <Button onlyIcon>
+        <WholeWord size={32} />
       </Button>
       <Button onlyIcon>
         <HelpCircle size={32} />

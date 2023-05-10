@@ -1,5 +1,5 @@
-import { ExpressionContextProvider } from "@/contexts/ExpressionContext";
 import { Menu } from "@components/Menu";
+import { ExpressionContextProvider } from "@contexts/ExpressionContext";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
