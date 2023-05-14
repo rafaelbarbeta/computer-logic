@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type PrecedenceOrderType = { [key: string]: RegExp };
 
 export type ResultType = { [key: string]: number[] | null };
@@ -18,5 +20,6 @@ export type EvaluateExpressionType = {
 export type ExpressionContextType = {
   resolveExpression: (expression: string) => Promise<void>;
   result: ResultType;
+  setResult: Dispatch<SetStateAction<ResultType>>;
   separateExpression: string[];
 };

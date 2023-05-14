@@ -46,17 +46,32 @@ export function resolveOperation(
     const dataExps = datas.map((data) => separateExpression[Number(data)]);
 
     const strFinal = dataExps.join(op);
-
     const values = result[dataExps[0]]!;
 
-    const res = new Array(values.length).fill(1);
+    let initialValue: number;
+    let operation: (a: number, b: number) => number;
+
+    switch (op) {
+      case "∧":
+        initialValue = 1;
+        operation = (a, b) => a & b; // Operação AND
+        break;
+      case "∨":
+        initialValue = 0;
+        operation = (a, b) => a | b; // Operação OR
+        break;
+      default:
+        throw new Error("Operação binária não suportada.");
+    }
+
+    const res: number[] = new Array(values.length).fill(initialValue);
 
     for (let i = 0; i < values.length; i++) {
       for (let j = 0; j < dataExps.length; j++) {
         const data = dataExps[j];
         const value = result[data]!;
 
-        if (value[i] != undefined) res[i] &= value[i];
+        res[i] = operation(res[i], value[i]);
       }
     }
 

@@ -27,9 +27,9 @@ export function ExpressionContextProvider({
       "[A-Z]": /^(?<data>[A-Z])$/,
       "¬x": /^(?<op>¬)\[?(?<data>[\w])\]?$/,
       "x.x": /([\w]+[\w])/g,
+      //? Antiga AND Op: /(?<=\(|^)(?:¬?\[?\w+\]?\]?)(?:(?<op>[∧·])¬?\[?\w+\]?\]?)+(?=\)|$)/g
       "∧": /(?<=\(|^)(?:¬?\[?\w+\]?\]?)(?:(?<op>[∧·])¬?\[?\w+\]?\]?)+(?=\)|$)/g,
-      "∨": /∨/g,
-      "+": /\+/g,
+      "∨": /(?<=\(|^)(?:¬?\[?\w+\]?\]?)(?:(?<op>[∨+])¬?\[?\w+\]?\]?)+(?=\)|$)/g,
       "⊕": /⊕/g,
       "→": /→/g,
       "⇒": /⇒/g,
@@ -67,6 +67,7 @@ export function ExpressionContextProvider({
     }
 
     let securityWhileFlag = 0;
+
     while (Object.keys(result).length < separateExpression.length) {
       securityWhileFlag++;
       if (securityWhileFlag > separateExpression.length) {
@@ -88,6 +89,7 @@ export function ExpressionContextProvider({
                   unaryOp(match);
                   break;
                 case "∧":
+                case "∨":
                   binaryOp(match);
                   break;
                 case "¬(x)|(x)":
@@ -109,7 +111,7 @@ export function ExpressionContextProvider({
 
   return (
     <ExpressionContext.Provider
-      value={{ resolveExpression, result, separateExpression }}
+      value={{ resolveExpression, result, setResult, separateExpression }}
     >
       {children}
     </ExpressionContext.Provider>

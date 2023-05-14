@@ -1,7 +1,12 @@
 import { useExpressionContext } from "@contexts/ExpressionContext";
+import { useEffect } from "react";
 
 export function TruthTable() {
-  const { result, separateExpression } = useExpressionContext();
+  const { result, setResult, separateExpression } = useExpressionContext();
+
+  useEffect(() => {
+    setResult({});
+  }, [setResult]);
 
   return (
     <>
@@ -29,7 +34,7 @@ export function TruthTable() {
                   <td
                     key={`${rowIndex}-${colIndex}`}
                     className={`px-6 py-3 text-gray-400 last:text-gray-200 last:bg-slate-900/50 ${
-                      rowIndex === result[exp]!.length &&
+                      rowIndex === result[exp]?.length &&
                       "first:rounded-bl-lg last:rounded-br-lg"
                     }`}
                   >
