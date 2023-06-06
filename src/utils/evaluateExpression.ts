@@ -2,17 +2,18 @@ import { EvaluateExpressionType, VariablesType } from "@@types/expression";
 
 export function evaluateExpression(expression: string): EvaluateExpressionType {
   const separateExpression: Array<string> = [];
-  const regex = /¬?\((.*)\)/;
+  const regex = /¬?\(([^()]+)\)/gm;
 
   let match;
   let exp = expression;
 
   while ((match = regex.exec(exp)) !== null) {
+    console.log(match);
     const totalExp = match[0];
-    exp = match[1];
+    const sepExp = match[1];
 
     if (totalExp[0] == "¬") separateExpression.unshift(totalExp);
-    separateExpression.unshift(exp);
+    separateExpression.unshift(sepExp);
   }
 
   if (!separateExpression.includes(expression)) {

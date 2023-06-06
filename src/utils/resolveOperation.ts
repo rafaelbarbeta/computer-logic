@@ -42,6 +42,8 @@ export function resolveOperation(
   function resolveBinaryOperations(info: MatchType) {
     const { op, str } = info;
 
+    // console.warn(info);
+
     const datas = str.split(op!).map((str) => str.replace(/\D/g, ""));
     const dataExps = datas.map((data) => separateExpression[Number(data)]);
 
@@ -50,6 +52,8 @@ export function resolveOperation(
 
     let initialValue: number;
     let operation: (a: number, b: number) => number;
+
+    // console.log(result);
 
     switch (op) {
       case "∧":
@@ -76,6 +80,8 @@ export function resolveOperation(
     }
 
     const strIndex = separateExpression.indexOf(str);
+
+    console.log({ str, separateExpression, strIndex });
 
     for (let i = strIndex; i < separateExpression.length; i++) {
       separateExpression[i] = separateExpression[i].replace(
