@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  ExpressionContextType,
-  MatchType,
-  PrecedenceOrderType,
-  ResultType,
-} from "@@types/expression";
+import { ExpressionContextType, ResultType } from "@@types/expression";
 import { evaluateExpression } from "@utils/evaluateExpression";
-import { resolveOperation } from "@utils/resolveOperation";
+import { getDataExpression, logicEvalMap } from "@utils/resolveOperation";
 import { ReactNode, createContext, useContext, useState } from "react";
 
 type ExpressionContextProviderProps = {
@@ -23,33 +18,17 @@ export function ExpressionContextProvider({
   const [separateExpression, setSeparateExpression] = useState([""]);
 
   async function resolveExpression(expression: string) {
-    const precedenceOrder = {
-      "[A-Z]": /^(?<data>[A-Z])$/,
-      "¬x": /^(?<op>¬)\[?(?<data>[\w])\]?$/,
-      "x.x": /([\w]+[\w])/g,
-      //? Antiga AND Op: /(?<=\(|^)(?:¬?\[?\w+\]?\]?)(?:(?<op>[∧·])¬?\[?\w+\]?\]?)+(?=\)|$)/g
-      "∧": /(?<=\(|^)(?:¬?\[?\w+\]?\]?)(?:(?<op>[∧·])¬?\[?\w+\]?\]?)+(?=\)|$)/,
-      "∨": /(?<=\(|^)(?:¬?\[?\w+\]?\]?)(?:(?<op>[∨+])¬?\[?\w+\]?\]?)+(?=\)|$)/,
-      "⊕": /⊕/g,
-      "→": /→/g,
-      "⇒": /⇒/g,
-      "⟷": /⟷/g,
-      "⇔": /⇔/g,
-      "¬(x)|(x)": /(?<op>¬)?\((?:\[?(?<data>[^()\[\]]*)\]?)\)/g,
-      "[0-9]": /^\[?(?<data>[\d])\]?$/g,
-    } as PrecedenceOrderType;
-
     const { variables, separateExpression } = evaluateExpression(expression);
     const result: ResultType = {};
 
     let valueMaxDec = 2 ** Object.keys(variables).length - 1;
     let binaryValues = [];
 
-    const { unaryOp, binaryOp, parenthesisOp, uniqueOp } = resolveOperation(
-      result,
-      separateExpression,
-      variables
-    );
+    const allVariables = [
+      ...new Set(
+        separateExpression.flatMap((element) => element.match(/¬?\w+/g))
+      ),
+    ] as string[];
 
     for (let i = 0; i <= valueMaxDec; i++) {
       binaryValues.push(
@@ -68,6 +47,13 @@ export function ExpressionContextProvider({
 
     let securityWhileFlag = 0;
 
+    allVariables.forEach((_var) => {
+      const variable = _var.replace(/^¬/, "");
+      result[_var] = variables[variable].map((value) =>
+        _var[0] === "¬" ? (value ? 0 : 1) : value
+      );
+    });
+
     while (Object.keys(result).length < separateExpression.length) {
       securityWhileFlag++;
       if (securityWhileFlag > separateExpression.length) {
@@ -75,34 +61,42 @@ export function ExpressionContextProvider({
         break;
       }
 
-      for (const [operation, regex] of Object.entries(precedenceOrder)) {
-        separateExpression.forEach((exp, i) => {
-          const matches = regex.exec(exp);
+      const allowedOperationsRegex = /[¬∧·∨+⟶⟷⟹⟺⊕]/;
+      const primaryOrderOperationsRegex = /[¬∧·∨+⊕]/;
 
-          if (matches) {
-            const match = { ...matches.groups, str: matches[0] } as MatchType;
+      for (let i = allVariables.length; i < separateExpression.length; i++) {
+        const exp = separateExpression[i];
+        let evalExp = exp;
+        let matchResult;
 
-            if (!result[match.str]) {
-              switch (operation) {
-                case "[A-Z]":
-                case "¬x":
-                  unaryOp(match);
-                  break;
-                case "∧":
-                case "∨":
-                  console.log(match);
-                  binaryOp(match);
-                  break;
-                case "¬(x)|(x)":
-                  parenthesisOp(match);
-                  break;
-                case "[0-9]":
-                  uniqueOp(match);
-                  break;
-              }
-            }
-          }
-        });
+        while ((matchResult = evalExp.match(allowedOperationsRegex))) {
+          const [op] = matchResult;
+          const pos = evalExp.indexOf(op);
+          const [data1, data2] = primaryOrderOperationsRegex.test(op)
+            ? [
+                getDataExpression(evalExp, pos - 1, "backward"),
+                getDataExpression(evalExp, pos + 1, "forward"),
+              ]
+            : [evalExp.substring(0, pos), evalExp.substring(pos + 1)];
+
+          const result = logicEvalMap(data1, data2, op);
+
+          evalExp = evalExp.replace(`${data1}${op}${data2}`, result);
+        }
+
+        const evalResults = [];
+        const letters = evalExp.match(/\w/g) ?? [];
+        const regex = new RegExp(letters.join("|"), "g");
+
+        for (let i = 0; i < valueMaxDec + 1; i++) {
+          const evalExpFormat = evalExp.replaceAll(regex, (match) => {
+            return String(result[match]![i]);
+          });
+
+          evalResults.push(Number(eval(evalExpFormat)));
+        }
+
+        result[exp] = evalResults;
       }
     }
 
