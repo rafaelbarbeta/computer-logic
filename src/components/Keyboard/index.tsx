@@ -94,19 +94,19 @@ export function Keyboard() {
             className="brightness-0 invert pointer-events-none"
           />
         </Key>
-        <Key onClick={handleKeyPress} value="¬">
+        <Key onClick={handleKeyPress} value="⟹">
           <Image
-            src="/assets/not.png"
-            alt="Not operation"
+            src="/assets/implication.png"
+            alt="Implication operation"
             height={24}
             width={24}
             className="brightness-0 invert pointer-events-none"
           />
         </Key>
-        <Key onClick={handleKeyPress} value="⊕">
+        <Key onClick={handleKeyPress} value="⟺">
           <Image
-            src="/assets/xor.png"
-            alt="XOR operation"
+            src="/assets/equivalence.png"
+            alt="Equivalence operation"
             height={24}
             width={24}
             className="brightness-0 invert pointer-events-none"
@@ -121,19 +121,19 @@ export function Keyboard() {
             className="brightness-0 invert pointer-events-none"
           />
         </Key>
-        <Key onClick={handleKeyPress} value="⟹">
+        <Key onClick={handleKeyPress} value="¬">
           <Image
-            src="/assets/implication.png"
-            alt="Implication operation"
+            src="/assets/not.png"
+            alt="Not operation"
             height={24}
             width={24}
             className="brightness-0 invert pointer-events-none"
           />
         </Key>
-        <Key onClick={handleKeyPress} value="⟺">
+        <Key onClick={handleKeyPress} value="⊕">
           <Image
-            src="/assets/equivalence.png"
-            alt="Equivalence operation"
+            src="/assets/xor.png"
+            alt="XOR operation"
             height={24}
             width={24}
             className="brightness-0 invert pointer-events-none"
