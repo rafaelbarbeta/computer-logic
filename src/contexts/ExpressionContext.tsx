@@ -14,12 +14,40 @@ const ExpressionContext = createContext({} as ExpressionContextType);
 export function ExpressionContextProvider({
   children,
 }: ExpressionContextProviderProps) {
-  const [result, setResult] = useState<ResultType>({});
+  const [result, setResult] = useState<ResultType>({
+    truthTable: {},
+    propositionalForm: "Contingência",
+    logicalImplication: {
+      implication: false,
+      properties: {
+        isReflexive: false,
+        isAntiSymmetric: false,
+        isTransitive: false,
+      },
+    },
+    logicalEquivalence: {
+      equivalence: false,
+      properties: {
+        isReflexive: false,
+        isSymmetric: false,
+        isTransitive: false,
+      },
+    },
+    conditionalPropositions: {
+      reciprocal: [],
+      contrary: [],
+      contrapositive: [],
+    },
+    normalForm: "",
+  });
+
   const [separateExpression, setSeparateExpression] = useState([""]);
 
   async function resolveExpression(expression: string) {
     const { variables, separateExpression } = evaluateExpression(expression);
-    const result: ResultType = {};
+    const result: ResultType = {
+      truthTable: {},
+    } as ResultType;
 
     let valueMaxDec = 2 ** Object.keys(variables).length - 1;
     let binaryValues = [];
@@ -49,7 +77,7 @@ export function ExpressionContextProvider({
 
     allVariables.forEach((_var) => {
       const variable = _var.replace(/^¬/, "");
-      result[_var] = variables[variable].map((value) =>
+      result.truthTable[_var] = variables[variable].map((value) =>
         _var[0] === "¬" ? (value ? 0 : 1) : value
       );
     });
@@ -90,13 +118,13 @@ export function ExpressionContextProvider({
 
         for (let i = 0; i < valueMaxDec + 1; i++) {
           const evalExpFormat = evalExp.replaceAll(regex, (match) => {
-            return String(result[match]![i]);
+            return String(result.truthTable[match]![i]);
           });
 
           evalResults.push(Number(eval(evalExpFormat)));
         }
 
-        result[exp] = evalResults;
+        result.truthTable[exp] = evalResults;
       }
     }
 

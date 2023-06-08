@@ -2,7 +2,32 @@ import { Dispatch, SetStateAction } from "react";
 
 export type PrecedenceOrderType = { [key: string]: RegExp };
 
-export type ResultType = { [key: string]: number[] | null };
+export type ResultType = {
+  truthTable: { [key: string]: number[] | null };
+  propositionalForm: "Tautologia" | "Contradição" | "Contingência";
+  logicalImplication: {
+    implication: boolean;
+    properties: {
+      isReflexive: boolean;
+      isAntiSymmetric: boolean;
+      isTransitive: boolean;
+    };
+  };
+  logicalEquivalence: {
+    equivalence: boolean;
+    properties: {
+      isReflexive: boolean;
+      isSymmetric: boolean;
+      isTransitive: boolean;
+    };
+  };
+  conditionalPropositions: {
+    reciprocal: string[];
+    contrary: string[];
+    contrapositive: string[];
+  };
+  normalForm: string | undefined;
+};
 
 export type VariablesType = Record<string, number[]>;
 
