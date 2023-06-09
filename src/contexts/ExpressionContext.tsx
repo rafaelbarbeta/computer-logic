@@ -42,6 +42,7 @@ export function ExpressionContextProvider({
   });
 
   const [separateExpression, setSeparateExpression] = useState([""]);
+  const [expression, setExpression] = useState("");
 
   async function resolveExpression(expression: string) {
     const { variables, separateExpression } = evaluateExpression(expression);
@@ -82,7 +83,10 @@ export function ExpressionContextProvider({
       );
     });
 
-    while (Object.keys(result).length < separateExpression.length) {
+    while (
+      Object.keys(result.truthTable).length < separateExpression.length &&
+      separateExpression.at(-1)?.length !== 1
+    ) {
       securityWhileFlag++;
       if (securityWhileFlag > separateExpression.length) {
         console.warn("WARN: WHILE LOOPING EXCEEDED!!!", separateExpression);
@@ -134,7 +138,14 @@ export function ExpressionContextProvider({
 
   return (
     <ExpressionContext.Provider
-      value={{ resolveExpression, result, setResult, separateExpression }}
+      value={{
+        resolveExpression,
+        result,
+        setResult,
+        expression,
+        setExpression,
+        separateExpression,
+      }}
     >
       {children}
     </ExpressionContext.Provider>

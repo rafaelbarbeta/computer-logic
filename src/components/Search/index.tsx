@@ -1,5 +1,6 @@
 "use client";
 
+import { ResultType } from "@/types/expression";
 import { useExpressionContext } from "@contexts/ExpressionContext";
 import { ChevronRight } from "lucide-react";
 import { Fira_Code } from "next/font/google";
@@ -9,7 +10,8 @@ import { Button } from "../Button";
 const firaCode = Fira_Code({ subsets: ["latin"] });
 
 export function Search() {
-  const { resolveExpression } = useExpressionContext();
+  const { resolveExpression, setExpression, setResult } =
+    useExpressionContext();
 
   async function handleResultExpression() {
     const input = document.querySelector(".search") as HTMLInputElement;
@@ -78,6 +80,11 @@ export function Search() {
         className="search border-2 border-r-0 text-2xl uppercase placeholder:normal-case border-slate-800 outline-none bg-inherit p-5 px-8 w-1/2 rounded-l-lg"
         onKeyUp={handleInputEntry}
         onKeyPress={handleInputEntry}
+        onChange={() => {
+          const input = document.querySelector(".search") as HTMLInputElement;
+          setExpression(input.value);
+          if (!input.value) setResult({ truthTable: {} } as ResultType);
+        }}
       />
       <Button className="rounded-s-none" onClick={handleResultExpression}>
         <ChevronRight size={32} />

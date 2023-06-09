@@ -1,18 +1,31 @@
 "use client";
 
-import { Search } from "@/components/Search";
-import { TruthTable } from "@/components/TruthTable";
+import { useExpressionContext } from "@/contexts/ExpressionContext";
 import { Keyboard } from "@components/Keyboard";
+import { LogicInfo } from "@components/LogicInfo";
 import { Page } from "@components/Page";
-import { useState } from "react";
+import { Search } from "@components/Search";
+import { TruthTable } from "@components/TruthTable";
+import { useEffect } from "react";
 
 export default function CalculatorPage() {
-  const [hasInput, setHasInput] = useState(false);
+  const { expression, result } = useExpressionContext();
+
+  useEffect(() => {
+    const searchInput = document.querySelector(".search") as HTMLInputElement;
+    searchInput.value = expression;
+  }, [expression]);
 
   return (
-    <Page className="flex items-center pt-20 gap-10">
+    <Page className="flex items-center pt-20 pb-80 gap-10">
       <Search />
-      <TruthTable />
+      {Object.keys(result.truthTable).length > 0 && (
+        <>
+          <TruthTable />
+          <LogicInfo />
+        </>
+      )}
+
       <Keyboard />
     </Page>
   );

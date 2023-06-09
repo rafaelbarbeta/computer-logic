@@ -46,5 +46,7 @@ export type ExpressionContextType = {
   resolveExpression: (expression: string) => Promise<void>;
   result: ResultType;
   setResult: Dispatch<SetStateAction<ResultType>>;
+  expression: string;
+  setExpression: Dispatch<SetStateAction<string>>;
   separateExpression: string[];
 };
