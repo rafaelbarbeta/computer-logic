@@ -16,30 +16,7 @@ export function ExpressionContextProvider({
 }: ExpressionContextProviderProps) {
   const [result, setResult] = useState<ResultType>({
     truthTable: {},
-    propositionalForm: "Contingência",
-    logicalImplication: {
-      implication: false,
-      properties: {
-        isReflexive: false,
-        isAntiSymmetric: false,
-        isTransitive: false,
-      },
-    },
-    logicalEquivalence: {
-      equivalence: false,
-      properties: {
-        isReflexive: false,
-        isSymmetric: false,
-        isTransitive: false,
-      },
-    },
-    conditionalPropositions: {
-      reciprocal: [],
-      contrary: [],
-      contrapositive: [],
-    },
-    normalForm: "",
-  });
+  } as ResultType);
 
   const [separateExpression, setSeparateExpression] = useState([""]);
   const [expression, setExpression] = useState("");
@@ -83,6 +60,7 @@ export function ExpressionContextProvider({
       );
     });
 
+    //? Solving preposition expression
     while (
       Object.keys(result.truthTable).length < separateExpression.length &&
       separateExpression.at(-1)?.length !== 1
@@ -131,6 +109,20 @@ export function ExpressionContextProvider({
         result.truthTable[exp] = evalResults;
       }
     }
+
+    //? Getting propositional form
+    const tableResult = result.truthTable[separateExpression.at(-1) ?? ""];
+    if (tableResult?.includes(1) && !tableResult.includes(0))
+      result.propositionalForm = "Tautologia";
+    if (tableResult?.includes(0) && !tableResult.includes(1))
+      result.propositionalForm = "Contradição";
+    if (tableResult?.includes(1) && tableResult.includes(0))
+      result.propositionalForm = "Contingência";
+
+    //? Getting logical implications
+    result.logicalImplication.implication =
+      (expression.includes("⟶") || expression.includes("⟹")) &&
+      result.propositionalForm === "Tautologia";
 
     setResult(result);
     setSeparateExpression(separateExpression);

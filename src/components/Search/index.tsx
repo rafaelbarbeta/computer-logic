@@ -34,7 +34,16 @@ export function Search() {
   function handleInputEntry(e: KeyboardEvent) {
     const input = document.querySelector(".search") as HTMLInputElement;
 
-    const shortcutsValues = ["AND", "XOR", "OR", "NOT", "BCOND", "COND"];
+    const shortcutsValues = [
+      "AND",
+      "XOR",
+      "OR",
+      "NOT",
+      "BCOND",
+      "COND",
+      "EQUIV",
+      "IMPL",
+    ];
 
     const char = e.key;
     const allowedChars = new RegExp("[A-Za-z0-1() +\b]+");
@@ -60,6 +69,12 @@ export function Search() {
             break;
           case "BCOND":
             insertInCursor("⟷");
+            break;
+          case "IMPL":
+            insertInCursor("⟹");
+            break;
+          case "EQUIV":
+            insertInCursor("⟺");
             break;
           default:
             break;
