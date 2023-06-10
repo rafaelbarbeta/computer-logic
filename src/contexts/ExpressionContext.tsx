@@ -23,9 +23,33 @@ export function ExpressionContextProvider({
 
   async function resolveExpression(expression: string) {
     const { variables, separateExpression } = evaluateExpression(expression);
+
     const result: ResultType = {
       truthTable: {},
-    } as ResultType;
+      propositionalForm: "Contingência",
+      logicalImplication: {
+        implication: false,
+        properties: {
+          isReflexive: false,
+          isAntiSymmetric: false,
+          isTransitive: false,
+        },
+      },
+      logicalEquivalence: {
+        equivalence: false,
+        properties: {
+          isReflexive: false,
+          isSymmetric: false,
+          isTransitive: false,
+        },
+      },
+      conditionalPropositions: {
+        reciprocal: [],
+        contrary: [],
+        contrapositive: [],
+      },
+      normalForm: "",
+    };
 
     let valueMaxDec = 2 ** Object.keys(variables).length - 1;
     let binaryValues = [];
@@ -119,10 +143,62 @@ export function ExpressionContextProvider({
     if (tableResult?.includes(1) && tableResult.includes(0))
       result.propositionalForm = "Contingência";
 
+    let delimitedExpression: string;
+
     //? Getting logical implications
     result.logicalImplication.implication =
       (expression.includes("⟶") || expression.includes("⟹")) &&
       result.propositionalForm === "Tautologia";
+
+    const expressionNoParenthesis = expression.replace(/^¬?\(|\)$/g, "");
+    const implicationsRegex = /(?<!\([^()⟶]*)[⟶⟹]/g;
+
+    delimitedExpression = expressionNoParenthesis.replaceAll(
+      implicationsRegex,
+      "_"
+    );
+
+    const implicationsExp = delimitedExpression.split("_");
+
+    //? Reflexive property
+    result.logicalImplication.properties.isReflexive = implicationsExp.every(
+      (elemento) => elemento === implicationsExp[0]
+    );
+
+    //? Transitive property
+    result.logicalImplication.properties.isTransitive =
+      implicationsExp.length > 2;
+
+    //? Anti-symmetric property
+    result.logicalImplication.properties.isAntiSymmetric =
+      implicationsExp.length === 3 && implicationsExp[0] === implicationsExp[2];
+
+    //? Getting logical equivalence
+    result.logicalEquivalence.equivalence =
+      (expression.includes("⟷") || expression.includes("⟺")) &&
+      result.propositionalForm === "Tautologia";
+
+    const equivalencesRegex = /(?<!\([^()⟷]*)[⟷⟺]/g;
+
+    delimitedExpression = expressionNoParenthesis.replaceAll(
+      equivalencesRegex,
+      "_"
+    );
+
+    const equivalencesExp = delimitedExpression.split("_");
+
+    //? Reflexive property
+    result.logicalEquivalence.properties.isReflexive = implicationsExp.every(
+      (elemento) => elemento === equivalencesExp[0]
+    );
+
+    //? Transitive property
+    result.logicalEquivalence.properties.isTransitive =
+      equivalencesExp.length > 2;
+
+    //? Symmetric property
+    result.logicalEquivalence.properties.isSymmetric =
+      result.logicalEquivalence.equivalence;
 
     setResult(result);
     setSeparateExpression(separateExpression);
