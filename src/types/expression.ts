@@ -22,9 +22,9 @@ export type ResultType = {
     };
   };
   conditionalPropositions: {
-    reciprocal: string[];
-    contrary: string[];
-    contrapositive: string[];
+    reciprocal: string;
+    contrary: string;
+    contrapositive: string;
   };
   normalForm: string | undefined;
 };

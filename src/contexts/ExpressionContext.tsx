@@ -1,8 +1,8 @@
 "use client";
 
-import { checkParenthesesMatching } from "@/utils/manipulateExpresion";
 import { ExpressionContextType, ResultType } from "@@types/expression";
 import { evaluateExpression } from "@utils/evaluateExpression";
+import { removeExternalParentheses } from "@utils/manipulateExpression";
 import { getDataExpression, logicEvalMap } from "@utils/resolveOperation";
 import { ReactNode, createContext, useContext, useState } from "react";
 
@@ -45,9 +45,9 @@ export function ExpressionContextProvider({
         },
       },
       conditionalPropositions: {
-        reciprocal: [],
-        contrary: [],
-        contrapositive: [],
+        reciprocal: "",
+        contrary: "",
+        contrapositive: "",
       },
       normalForm: "",
     };
@@ -154,15 +154,11 @@ export function ExpressionContextProvider({
       (expression.includes("⟶") || expression.includes("⟹")) &&
       result.propositionalForm === "Tautologia";
 
-    let expressionNoParenthesis = expression.replace(/^¬?\(|\)$/g, "");
-
-    expressionNoParenthesis = checkParenthesesMatching(expressionNoParenthesis)
-      ? expressionNoParenthesis
-      : expression;
+    const { expressionNoParentheses } = removeExternalParentheses(expression);
 
     const implicationsRegex = /(?<!\([^()⟶]*)[⟶⟹]/g;
 
-    delimitedExpression = expressionNoParenthesis.replaceAll(
+    delimitedExpression = expressionNoParentheses.replaceAll(
       implicationsRegex,
       "_"
     );
@@ -189,7 +185,7 @@ export function ExpressionContextProvider({
 
     const equivalencesRegex = /(?<!\([^()⟷]*)[⟷⟺]/g;
 
-    delimitedExpression = expressionNoParenthesis.replaceAll(
+    delimitedExpression = expressionNoParentheses.replaceAll(
       equivalencesRegex,
       "_"
     );
@@ -208,6 +204,21 @@ export function ExpressionContextProvider({
     //? Symmetric property
     result.logicalEquivalence.properties.isSymmetric =
       result.logicalEquivalence.equivalence;
+
+    //? Condicional propositions
+    if (implicationsExp.length === 2) {
+      let { expressionNoParentheses: A, wasRemoved: wasRemovedA } =
+        removeExternalParentheses(implicationsExp[0]);
+      let { expressionNoParentheses: B, wasRemoved: wasRemovedB } =
+        removeExternalParentheses(implicationsExp[1]);
+
+      if (wasRemovedA && implicationsExp[0][0] === "¬") A = implicationsExp[0];
+      if (wasRemovedB && implicationsExp[1][0] === "¬") B = implicationsExp[1];
+
+      result.conditionalPropositions.reciprocal = `${implicationsExp[1]}⟶${implicationsExp[0]}`;
+      result.conditionalPropositions.contrary = `¬(${A})⟶¬(${B})`;
+      result.conditionalPropositions.contrapositive = `¬(${B})⟶¬(${A})`;
+    }
 
     setResult(result);
     setSeparateExpression(separateExpression);

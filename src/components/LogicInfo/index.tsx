@@ -1,5 +1,5 @@
-import { useExpressionContext } from "@/contexts/ExpressionContext";
-import { checkParenthesesMatching } from "@/utils/manipulateExpresion";
+import { useExpressionContext } from "@contexts/ExpressionContext";
+import { removeExternalParentheses } from "@utils/manipulateExpression";
 import { useEffect, useState } from "react";
 
 export function LogicInfo() {
@@ -10,24 +10,20 @@ export function LogicInfo() {
   const [equivalence, setEquivalence] = useState("");
 
   useEffect(() => {
-    let proposition = separateExpression.at(-1);
-    setProposition(proposition ?? "");
+    let proposition = separateExpression.at(-1) ?? "";
+    setProposition(proposition);
 
     const parenthesis: string[] = [];
-    const propositionNoParenthesis =
-      proposition?.replace(/^¬?\(|\)$/g, "") ?? "";
-
-    proposition = checkParenthesesMatching(propositionNoParenthesis)
-      ? propositionNoParenthesis
-      : proposition;
+    proposition =
+      removeExternalParentheses(proposition).expressionNoParentheses;
 
     if (parenthesis.length === 0) parenthesis.push("", "");
 
     const implication = proposition?.replaceAll(/(?<!\([^()⟶]*)[⟶⟹]/g, "⟹");
-    setImplication(`${parenthesis[0]}${implication}${parenthesis[1]}` ?? "");
+    setImplication(`${parenthesis[0]}${implication}${parenthesis[1]}`);
 
-    const equivalence = proposition?.replaceAll(/(?<!\([^()⟷]*)[⟷⟺]/g, "⟹");
-    setEquivalence(`${parenthesis[0]}${equivalence}${parenthesis[1]}` ?? "");
+    const equivalence = proposition?.replaceAll(/(?<!\([^()⟷]*)[⟷⟺]/g, "⟺");
+    setEquivalence(`${parenthesis[0]}${equivalence}${parenthesis[1]}`);
   }, [separateExpression]);
 
   return (
@@ -169,11 +165,19 @@ export function LogicInfo() {
               </tr>
               {result.logicalEquivalence.equivalence && (
                 <>
-                  <tr className="bg-slate-950/30 border-slate-800">
-                    <td className="px-6 py-2 uppercase font-bold " colSpan={2}>
-                      Propriedades
-                    </td>
-                  </tr>
+                  {!Object.values(result.logicalEquivalence.properties).every(
+                    (valor) => !valor
+                  ) && (
+                    <tr className="bg-slate-950/30 border-slate-800">
+                      <td
+                        className="px-6 py-2 uppercase font-bold "
+                        colSpan={2}
+                      >
+                        Propriedades
+                      </td>
+                    </tr>
+                  )}
+
                   {result.logicalEquivalence.properties.isReflexive && (
                     <tr className="bg-slate-800/50 border-slate-800">
                       <td className="px-6 py-3 bg-slate-900/50">Reflexiva</td>
@@ -207,6 +211,54 @@ export function LogicInfo() {
           </table>
         )}
       </div>
+      {result.conditionalPropositions.reciprocal && (
+        <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
+          <thead className="bg-slate-950/50">
+            <tr>
+              <th
+                className="px-6 py-3 first:rounded-tl-lg last:rounded-tr-lg uppercase"
+                colSpan={2}
+              >
+                Proposições Condicionais
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="bg-slate-800/50 border-slate-800">
+              <td className="px-6 py-3 bg-slate-900/50">Recíproca</td>
+              <td className="px-6 py-3">
+                A proposição <b>recíproca</b> de <i>{proposition}</i> é <br />
+                <span className="font-bold">
+                  {result.conditionalPropositions.reciprocal}
+                </span>
+              </td>
+            </tr>
+
+            <tr className="bg-slate-800/50 border-slate-800">
+              <td className="px-6 py-3 bg-slate-900/50">Contrária</td>
+              <td className="px-6 py-3">
+                A proposição <b>contrária</b> de <i>{proposition}</i> é <br />
+                <span className="font-bold">
+                  {result.conditionalPropositions.contrary}
+                </span>
+              </td>
+            </tr>
+
+            <tr className="bg-slate-800/50 border-slate-800">
+              <td className="px-6 py-3 bg-slate-900/50">
+                Contra-positiva ou recíproca da contraria
+              </td>
+              <td className="px-6 py-3">
+                A proposição <b>contra-positiva</b> de <i>{proposition}</i> é{" "}
+                <br />
+                <span className="font-bold">
+                  {result.conditionalPropositions.contrapositive}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
