@@ -13,9 +13,9 @@ function logicEvalMap(A: string, B: string, op: string): string {
       return `!(${A})||${B}`;
     case "⟷":
     case "⟺":
-      return `(${A} && ${B}) || (!(${A}) && !(${B}))`;
+      return `( ${A} ) == ( ${B} )`;
     case "⊕":
-      return `(${A} || ${B}) && !(${A} && ${B})`;
+      return `( ${A} ) ^ ( ${B} )`;
     default:
       return "Erro, não foi possível converter a expressão lógica";
   }

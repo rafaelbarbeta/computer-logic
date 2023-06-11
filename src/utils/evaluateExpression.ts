@@ -38,5 +38,16 @@ export function evaluateExpression(expression: string): EvaluateExpressionType {
   separateExpression.unshift(...negatedVariables);
   separateExpression.unshift(...Object.keys(variables));
 
+  separateExpression.filter(
+    (value, index) => separateExpression.indexOf(value) === index
+  );
+
+  // Removendo elementos repetidos do array
+  for (let i = separateExpression.length - 1; i >= 0; i--) {
+    if (separateExpression.indexOf(separateExpression[i]) < i) {
+      separateExpression.splice(i, 1);
+    }
+  }
+
   return { variables, separateExpression };
 }

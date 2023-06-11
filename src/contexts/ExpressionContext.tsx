@@ -1,5 +1,6 @@
 "use client";
 
+import { checkParenthesesMatching } from "@/utils/manipulateExpresion";
 import { ExpressionContextType, ResultType } from "@@types/expression";
 import { evaluateExpression } from "@utils/evaluateExpression";
 import { getDataExpression, logicEvalMap } from "@utils/resolveOperation";
@@ -115,7 +116,10 @@ export function ExpressionContextProvider({
 
           const result = logicEvalMap(data1, data2, op);
 
-          evalExp = evalExp.replace(`${data1}${op}${data2}`, result);
+          const replaceExp =
+            op === "¬" ? `${op}${data2}` : `${data1}${op}${data2}`;
+
+          evalExp = evalExp.replaceAll(replaceExp, result);
         }
 
         const evalResults = [];
@@ -150,7 +154,12 @@ export function ExpressionContextProvider({
       (expression.includes("⟶") || expression.includes("⟹")) &&
       result.propositionalForm === "Tautologia";
 
-    const expressionNoParenthesis = expression.replace(/^¬?\(|\)$/g, "");
+    let expressionNoParenthesis = expression.replace(/^¬?\(|\)$/g, "");
+
+    expressionNoParenthesis = checkParenthesesMatching(expressionNoParenthesis)
+      ? expressionNoParenthesis
+      : expression;
+
     const implicationsRegex = /(?<!\([^()⟶]*)[⟶⟹]/g;
 
     delimitedExpression = expressionNoParenthesis.replaceAll(
@@ -188,7 +197,7 @@ export function ExpressionContextProvider({
     const equivalencesExp = delimitedExpression.split("_");
 
     //? Reflexive property
-    result.logicalEquivalence.properties.isReflexive = implicationsExp.every(
+    result.logicalEquivalence.properties.isReflexive = equivalencesExp.every(
       (elemento) => elemento === equivalencesExp[0]
     );
 
