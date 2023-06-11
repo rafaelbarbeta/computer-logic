@@ -29,7 +29,7 @@ export function Keyboard() {
   }
 
   return (
-    <div className="fixed flex justify-center items-center bottom-0 h-72 w-2/6 bg-slate-800 rounded-t-lg shadow-md">
+    <div className="keyboard fixed flex justify-center items-center bottom-0 transition-all duration-300 h-72 w-2/6 bg-slate-800 rounded-t-lg shadow-md">
       <div className="grid grid-rows-3 grid-cols-5 gap-5 items-center justify-items-center p-10">
         <Key onClick={handleKeyPress} value="∧">
           <Image

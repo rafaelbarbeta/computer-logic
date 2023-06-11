@@ -13,11 +13,21 @@ export function Search() {
   const { resolveExpression, setExpression, setResult } =
     useExpressionContext();
 
+  function toggleKeyboard(state: "open" | "close") {
+    const keyboard = document.querySelector(".keyboard") as HTMLDivElement;
+
+    if (state === "close") keyboard.classList.replace("bottom-0", "-bottom-60");
+    else keyboard.classList.replace("-bottom-60", "bottom-0");
+  }
+
   async function handleResultExpression() {
     const input = document.querySelector(".search") as HTMLInputElement;
+
     const expression = input.value.toUpperCase() ?? "";
 
     await resolveExpression(expression);
+
+    toggleKeyboard("close");
   }
 
   function insertInCursor(chr: string) {
@@ -95,6 +105,7 @@ export function Search() {
         className="search border-2 border-r-0 text-2xl uppercase placeholder:normal-case border-slate-800 outline-none bg-inherit p-5 px-8 w-1/2 rounded-l-lg"
         onKeyUp={handleInputEntry}
         onKeyPress={handleInputEntry}
+        onFocus={() => toggleKeyboard("open")}
         onChange={() => {
           const input = document.querySelector(".search") as HTMLInputElement;
           setExpression(input.value);
