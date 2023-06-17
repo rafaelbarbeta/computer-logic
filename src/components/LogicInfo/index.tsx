@@ -67,150 +67,156 @@ export function LogicInfo() {
           </tr>
         </tbody>
       </table>
+      {/(?<!\([^()⟶⟷]*)[⟶⟹⟷⟺]/g.test(proposition) && (
+        <div className="flex gap-10">
+          {/(?<!\([^()⟶]*)[⟶⟹]/g.test(proposition) && (
+            <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
+              <thead className="bg-slate-950/50">
+                <tr>
+                  <th
+                    className="px-6 py-3 first:rounded-tl-lg last:rounded-tr-lg uppercase"
+                    colSpan={2}
+                  >
+                    Implicação Lógica
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
+                  <td className="px-6 py-3" colSpan={2}>
+                    A implicação lógica {implication} é{" "}
+                    <span className="font-bold">
+                      {result.logicalImplication.implication
+                        ? "válida"
+                        : "inválida"}
+                    </span>
+                  </td>
+                </tr>
+                {result.logicalImplication.implication && (
+                  <>
+                    {!Object.values(result.logicalImplication.properties).every(
+                      (valor) => !valor
+                    ) && (
+                      <tr className="bg-slate-950/30 border-slate-800">
+                        <td
+                          className="px-6 py-2 uppercase font-bold "
+                          colSpan={2}
+                        >
+                          Propriedades
+                        </td>
+                      </tr>
+                    )}
+                    {result.logicalImplication.properties.isReflexive && (
+                      <tr className="bg-slate-800/50 border-slate-800">
+                        <td className="px-6 py-3 bg-slate-900/50">Reflexiva</td>
+                        <td className="px-6 py-3">
+                          A implicação é <b>reflexiva</b>. <br />
+                          <span className="italic">Ex.: A⟹A</span>
+                        </td>
+                      </tr>
+                    )}
+                    {result.logicalImplication.properties.isTransitive && (
+                      <tr className="bg-slate-800/50 border-slate-800">
+                        <td className="px-6 py-3 bg-slate-900/50">
+                          Transitiva
+                        </td>
+                        <td className="px-6 py-3">
+                          A implicação é <b>transitiva</b>. <br />
+                          <span className="italic">Ex.: A⟹B⟹C ∴ A⟹C</span>
+                        </td>
+                      </tr>
+                    )}
+                    {result.logicalImplication.properties.isAntiSymmetric && (
+                      <tr className="bg-slate-800/50 border-slate-800">
+                        <td className="px-6 py-3 bg-slate-900/50">
+                          Anti-simétrica
+                        </td>
+                        <td className="px-6 py-3">
+                          A implicação é <b>anti-simétrica</b>. <br />
+                          <span className="italic">Ex.: A⟹B e B⟹A ∴ A⟺B</span>
+                        </td>
+                      </tr>
+                    )}
+                  </>
+                )}
+              </tbody>
+            </table>
+          )}
+          {/(?<!\([^()⟷]*)[⟷⟺]/g.test(proposition) && (
+            <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
+              <thead className="bg-slate-950/50">
+                <tr>
+                  <th
+                    className="px-6 py-3 first:rounded-tl-lg last:rounded-tr-lg uppercase"
+                    colSpan={2}
+                  >
+                    Equivalência Lógica
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
+                  <td className="px-6 py-3" colSpan={2}>
+                    A equivalência lógica {equivalence} é{" "}
+                    <span className="font-bold">
+                      {result.logicalEquivalence.equivalence
+                        ? "válida"
+                        : "inválida"}
+                    </span>
+                  </td>
+                </tr>
+                {result.logicalEquivalence.equivalence && (
+                  <>
+                    {!Object.values(result.logicalEquivalence.properties).every(
+                      (valor) => !valor
+                    ) && (
+                      <tr className="bg-slate-950/30 border-slate-800">
+                        <td
+                          className="px-6 py-2 uppercase font-bold "
+                          colSpan={2}
+                        >
+                          Propriedades
+                        </td>
+                      </tr>
+                    )}
 
-      <div className="flex gap-10">
-        {/(?<!\([^()⟶]*)[⟶⟹]/g.test(proposition) && (
-          <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
-            <thead className="bg-slate-950/50">
-              <tr>
-                <th
-                  className="px-6 py-3 first:rounded-tl-lg last:rounded-tr-lg uppercase"
-                  colSpan={2}
-                >
-                  Implicação Lógica
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
-                <td className="px-6 py-3" colSpan={2}>
-                  A implicação lógica {implication} é{" "}
-                  <span className="font-bold">
-                    {result.logicalImplication.implication
-                      ? "válida"
-                      : "inválida"}
-                  </span>
-                </td>
-              </tr>
-              {result.logicalImplication.implication && (
-                <>
-                  {!Object.values(result.logicalImplication.properties).every(
-                    (valor) => !valor
-                  ) && (
-                    <tr className="bg-slate-950/30 border-slate-800">
-                      <td
-                        className="px-6 py-2 uppercase font-bold "
-                        colSpan={2}
-                      >
-                        Propriedades
-                      </td>
-                    </tr>
-                  )}
-                  {result.logicalImplication.properties.isReflexive && (
-                    <tr className="bg-slate-800/50 border-slate-800">
-                      <td className="px-6 py-3 bg-slate-900/50">Reflexiva</td>
-                      <td className="px-6 py-3">
-                        A implicação é <b>reflexiva</b>. <br />
-                        <span className="italic">Ex.: A⟹A</span>
-                      </td>
-                    </tr>
-                  )}
-                  {result.logicalImplication.properties.isTransitive && (
-                    <tr className="bg-slate-800/50 border-slate-800">
-                      <td className="px-6 py-3 bg-slate-900/50">Transitiva</td>
-                      <td className="px-6 py-3">
-                        A implicação é <b>transitiva</b>. <br />
-                        <span className="italic">Ex.: A⟹B⟹C ∴ A⟹C</span>
-                      </td>
-                    </tr>
-                  )}
-                  {result.logicalImplication.properties.isAntiSymmetric && (
-                    <tr className="bg-slate-800/50 border-slate-800">
-                      <td className="px-6 py-3 bg-slate-900/50">
-                        Anti-simétrica
-                      </td>
-                      <td className="px-6 py-3">
-                        A implicação é <b>anti-simétrica</b>. <br />
-                        <span className="italic">Ex.: A⟹B e B⟹A ∴ A⟺B</span>
-                      </td>
-                    </tr>
-                  )}
-                </>
-              )}
-            </tbody>
-          </table>
-        )}
-        {/(?<!\([^()⟷]*)[⟷⟺]/g.test(proposition) && (
-          <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
-            <thead className="bg-slate-950/50">
-              <tr>
-                <th
-                  className="px-6 py-3 first:rounded-tl-lg last:rounded-tr-lg uppercase"
-                  colSpan={2}
-                >
-                  Equivalência Lógica
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
-                <td className="px-6 py-3" colSpan={2}>
-                  A equivalência lógica {equivalence} é{" "}
-                  <span className="font-bold">
-                    {result.logicalEquivalence.equivalence
-                      ? "válida"
-                      : "inválida"}
-                  </span>
-                </td>
-              </tr>
-              {result.logicalEquivalence.equivalence && (
-                <>
-                  {!Object.values(result.logicalEquivalence.properties).every(
-                    (valor) => !valor
-                  ) && (
-                    <tr className="bg-slate-950/30 border-slate-800">
-                      <td
-                        className="px-6 py-2 uppercase font-bold "
-                        colSpan={2}
-                      >
-                        Propriedades
-                      </td>
-                    </tr>
-                  )}
+                    {result.logicalEquivalence.properties.isReflexive && (
+                      <tr className="bg-slate-800/50 border-slate-800">
+                        <td className="px-6 py-3 bg-slate-900/50">Reflexiva</td>
+                        <td className="px-6 py-3">
+                          A equivalência é <b>reflexiva</b>. <br />
+                          <span className="italic">Ex.: A⟺A</span>
+                        </td>
+                      </tr>
+                    )}
+                    {result.logicalEquivalence.properties.isTransitive && (
+                      <tr className="bg-slate-800/50 border-slate-800">
+                        <td className="px-6 py-3 bg-slate-900/50">
+                          Transitiva
+                        </td>
+                        <td className="px-6 py-3">
+                          A equivalência é <b>transitiva</b>. <br />
+                          <span className="italic">Ex.: A⟺B⟺C ∴ A⟺C</span>
+                        </td>
+                      </tr>
+                    )}
+                    {result.logicalEquivalence.properties.isSymmetric && (
+                      <tr className="bg-slate-800/50 border-slate-800">
+                        <td className="px-6 py-3 bg-slate-900/50">Simétrica</td>
+                        <td className="px-6 py-3">
+                          A equivalência é <b>simétrica</b>. <br />
+                          <span className="italic">Ex.: A⟺B ∴ B⟺A</span>
+                        </td>
+                      </tr>
+                    )}
+                  </>
+                )}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
 
-                  {result.logicalEquivalence.properties.isReflexive && (
-                    <tr className="bg-slate-800/50 border-slate-800">
-                      <td className="px-6 py-3 bg-slate-900/50">Reflexiva</td>
-                      <td className="px-6 py-3">
-                        A equivalência é <b>reflexiva</b>. <br />
-                        <span className="italic">Ex.: A⟺A</span>
-                      </td>
-                    </tr>
-                  )}
-                  {result.logicalEquivalence.properties.isTransitive && (
-                    <tr className="bg-slate-800/50 border-slate-800">
-                      <td className="px-6 py-3 bg-slate-900/50">Transitiva</td>
-                      <td className="px-6 py-3">
-                        A equivalência é <b>transitiva</b>. <br />
-                        <span className="italic">Ex.: A⟺B⟺C ∴ A⟺C</span>
-                      </td>
-                    </tr>
-                  )}
-                  {result.logicalEquivalence.properties.isSymmetric && (
-                    <tr className="bg-slate-800/50 border-slate-800">
-                      <td className="px-6 py-3 bg-slate-900/50">Simétrica</td>
-                      <td className="px-6 py-3">
-                        A equivalência é <b>simétrica</b>. <br />
-                        <span className="italic">Ex.: A⟺B ∴ B⟺A</span>
-                      </td>
-                    </tr>
-                  )}
-                </>
-              )}
-            </tbody>
-          </table>
-        )}
-      </div>
       {result.conditionalPropositions.reciprocal && (
         <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
           <thead className="bg-slate-950/50">
@@ -259,6 +265,84 @@ export function LogicInfo() {
           </tbody>
         </table>
       )}
+
+      <div className="flex gap-10">
+        <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
+          <thead className="bg-slate-950/50">
+            <tr>
+              <th
+                className="px-6 py-3 first:rounded-tl-lg last:rounded-tr-lg uppercase"
+                colSpan={2}
+              >
+                Forma normal disjuntiva (FND)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
+              <td className="px-6 py-3" colSpan={2}>
+                A proposição {proposition}{" "}
+                <span className="font-bold">
+                  {result.normalForm.fnd.isFND ? "está " : "não está "}
+                </span>
+                na FND
+              </td>
+            </tr>
+
+            {!result.normalForm.fnd.isFND && (
+              <>
+                <tr className="bg-slate-950/30 border-slate-800">
+                  <td className="px-6 py-2 uppercase font-bold " colSpan={2}>
+                    Conversão para a FND
+                  </td>
+                </tr>
+                <tr className="bg-slate-800/50 border-slate-800">
+                  <td className="px-6 py-3">
+                    {result.normalForm.fnd.proposition}
+                  </td>
+                </tr>
+              </>
+            )}
+          </tbody>
+        </table>
+        <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
+          <thead className="bg-slate-950/50">
+            <tr>
+              <th
+                className="px-6 py-3 first:rounded-tl-lg last:rounded-tr-lg uppercase"
+                colSpan={2}
+              >
+                Forma normal conjuntiva (FNC)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
+              <td className="px-6 py-3" colSpan={2}>
+                A proposição {proposition}{" "}
+                <span className="font-bold">
+                  {result.normalForm.fnc.isFNC ? "está " : "não está "}
+                </span>
+                na FNC
+              </td>
+            </tr>
+            {!result.normalForm.fnc.isFNC && (
+              <>
+                <tr className="bg-slate-950/30 border-slate-800">
+                  <td className="px-6 py-2 uppercase font-bold " colSpan={2}>
+                    Conversão para a FNC
+                  </td>
+                </tr>
+                <tr className="bg-slate-800/50 border-slate-800">
+                  <td className="px-6 py-3">
+                    {result.normalForm.fnc.proposition}
+                  </td>
+                </tr>
+              </>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

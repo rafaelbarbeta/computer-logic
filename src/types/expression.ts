@@ -26,7 +26,16 @@ export type ResultType = {
     contrary: string;
     contrapositive: string;
   };
-  normalForm: string | undefined;
+  normalForm: {
+    fnd: {
+      isFND: boolean;
+      proposition: string;
+    };
+    fnc: {
+      isFNC: boolean;
+      proposition: string;
+    };
+  };
 };
 
 export type VariablesType = Record<string, number[]>;

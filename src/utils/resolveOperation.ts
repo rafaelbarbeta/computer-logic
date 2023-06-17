@@ -7,10 +7,10 @@ function logicEvalMap(A: string, B: string, op: string): string {
       return `${A}&&${B}`;
     case "∨":
     case "+":
-      return `${A}||${B}`;
+      return `${A}|${B}`;
     case "⟶":
     case "⟹":
-      return `!(${A})||${B}`;
+      return `!(${A})|(${B})`;
     case "⟷":
     case "⟺":
       return `( ${A} ) == ( ${B} )`;
@@ -39,9 +39,9 @@ function getDataExpression(
   ) {
     const chr = expression[i];
 
+    if (chr === undefined) break;
     if (chr === "(") parenthesisCount++;
     if (chr === ")") parenthesisCount--;
-
     internalExpression += chr;
     if (
       (direction === "forward" && parenthesisCount === 0 && chr !== "¬") ||
