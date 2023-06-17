@@ -27,7 +27,7 @@ export function LogicInfo() {
   }, [separateExpression]);
 
   return (
-    <div className="min-w-[55%] flex flex-col gap-10">
+    <div className="w-[55%] flex flex-col gap-10">
       <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
         <thead className="bg-slate-950/50">
           <tr>
@@ -42,7 +42,7 @@ export function LogicInfo() {
         <tbody>
           <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
             {result.truthTable[proposition]?.map((value, i) => (
-              <td key={i} className="px-6 py-3 ">
+              <td key={i} className="py-3">
                 {value}
               </td>
             ))}
@@ -68,7 +68,7 @@ export function LogicInfo() {
         </tbody>
       </table>
       {/(?<!\([^()⟶⟷]*)[⟶⟹⟷⟺]/g.test(proposition) && (
-        <div className="flex gap-10">
+        <div className="flex flex-wrap gap-10">
           {/(?<!\([^()⟶]*)[⟶⟹]/g.test(proposition) && (
             <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
               <thead className="bg-slate-950/50">
@@ -266,7 +266,7 @@ export function LogicInfo() {
         </table>
       )}
 
-      <div className="flex gap-10">
+      <div className="flex w-full flex-wrap text-ellipsis gap-10">
         <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
           <thead className="bg-slate-950/50">
             <tr>
@@ -297,15 +297,16 @@ export function LogicInfo() {
                   </td>
                 </tr>
                 <tr className="bg-slate-800/50 border-slate-800">
-                  <td className="px-6 py-3">
-                    {result.normalForm.fnd.proposition}
+                  <td className="px-6 py-3 truncate max-w-0">
+                    {result.normalForm.fnd.proposition ||
+                      "Impossível converter para a FND"}
                   </td>
                 </tr>
               </>
             )}
           </tbody>
         </table>
-        <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
+        <table className="text-center w-full  text-gray-300 border border-slate-800 border-separate rounded-lg">
           <thead className="bg-slate-950/50">
             <tr>
               <th
@@ -334,8 +335,9 @@ export function LogicInfo() {
                   </td>
                 </tr>
                 <tr className="bg-slate-800/50 border-slate-800">
-                  <td className="px-6 py-3">
-                    {result.normalForm.fnc.proposition}
+                  <td className="px-6 py-3 truncate max-w-0">
+                    {result.normalForm.fnc.proposition ||
+                      "Impossível converter para a FNC"}
                   </td>
                 </tr>
               </>

@@ -110,8 +110,6 @@ export function ExpressionContextProvider({
       const primaryOrderOperationsRegex = /[¬∧·∨+⊕]/;
       const secondaryOrderOperationsRegex = /\([^()]*?([⟶⟷⟹⟺])[^()]*?\)/;
 
-      let auxSeparateExpression = separateExpression;
-
       for (let i = allVariables.length; i < separateExpression.length; i++) {
         const exp = separateExpression[i];
         let evalExp = exp;
