@@ -7,7 +7,7 @@ function logicEvalMap(A: string, B: string, op: string): string {
       return `${A}&&${B}`;
     case "∨":
     case "+":
-      return `${A}|${B}`;
+      return `${A}||${B}`;
     case "⟶":
     case "⟹":
       return `!(${A})|(${B})`;

@@ -110,8 +110,10 @@ export function ExpressionContextProvider({
       const primaryOrderOperationsRegex = /[¬∧·∨+⊕]/;
       const secondaryOrderOperationsRegex = /\([^()]*?([⟶⟷⟹⟺])[^()]*?\)/;
 
+      let auxExpression = [...separateExpression];
+
       for (let i = allVariables.length; i < separateExpression.length; i++) {
-        const exp = separateExpression[i];
+        const exp = auxExpression[i];
         let evalExp = exp;
         let matchResult;
 
@@ -157,6 +159,10 @@ export function ExpressionContextProvider({
           evalExp = evalExp.replaceAll(replaceExp, result);
         }
 
+        for (let i = 0; i < auxExpression.length; i++) {
+          auxExpression[i] = auxExpression[i].replaceAll(exp, evalExp);
+        }
+
         const evalResults = [];
         const letters = evalExp.match(/\w/g) ?? [];
         const regex = new RegExp(letters.join("|"), "g");
@@ -172,7 +178,7 @@ export function ExpressionContextProvider({
         result.truthTable[separateExpression[i]] = evalResults;
       }
     }
-
+    // console.warn(separateExpression);
     //? Getting propositional form
     const tableResult = result.truthTable[expression];
     if (tableResult?.includes(1) && !tableResult.includes(0))
