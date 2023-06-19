@@ -10,8 +10,7 @@ import { Button } from "../Button";
 const firaCode = Fira_Code({ subsets: ["latin"] });
 
 export function Search() {
-  const { resolveExpression, setExpression, setResult } =
-    useExpressionContext();
+  const { resolveLogic, setExpression, setResult } = useExpressionContext();
 
   function toggleKeyboard(state: "open" | "close") {
     const keyboard = document.querySelector(".keyboard") as HTMLDivElement;
@@ -20,12 +19,12 @@ export function Search() {
     else keyboard.classList.replace("-bottom-60", "bottom-0");
   }
 
-  async function handleResultExpression() {
+  async function handleResult() {
     const input = document.querySelector(".search") as HTMLInputElement;
 
     const expression = input.value.toUpperCase() ?? "";
 
-    await resolveExpression(expression);
+    await resolveLogic(expression);
 
     toggleKeyboard("close");
   }
@@ -112,7 +111,7 @@ export function Search() {
           if (!input.value) setResult({ truthTable: {} } as ResultType);
         }}
       />
-      <Button className="rounded-s-none" onClick={handleResultExpression}>
+      <Button className="rounded-s-none" onClick={handleResult}>
         <ChevronRight size={32} />
       </Button>
     </div>

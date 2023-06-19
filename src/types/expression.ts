@@ -52,7 +52,7 @@ export type EvaluateExpressionType = {
 };
 
 export type ExpressionContextType = {
-  resolveExpression: (expression: string) => Promise<void>;
+  resolveLogic: (expression: string) => Promise<void>;
   result: ResultType;
   setResult: Dispatch<SetStateAction<ResultType>>;
   expression: string;
