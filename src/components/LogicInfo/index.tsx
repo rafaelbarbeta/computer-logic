@@ -1,5 +1,5 @@
 import { useExpressionContext } from "@contexts/ExpressionContext";
-import { removeExternalParentheses } from "@utils/manipulateExpression";
+import { removeExternalParentheses } from "@functions/manipulateExpression";
 import { useEffect, useState } from "react";
 
 export function LogicInfo() {
