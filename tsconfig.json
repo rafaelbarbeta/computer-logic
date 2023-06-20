@@ -49,9 +49,6 @@
       "@constants/*": [
         "./src/constants/*"
       ],
-      "@constants/*": [
-        "./src/constants/*"
-      ],
     }
   },
   "include": [
