@@ -14,7 +14,6 @@ import {
 } from "@constants/regex";
 import { removeExternalParentheses } from "@functions/manipulateExpression";
 import { getDataExpression, logicEvalMap } from "@functions/resolveOperation";
-import XRE from "xregexp";
 
 export class LogicEvaluator {
   private expression: string;
@@ -122,22 +121,7 @@ export class LogicEvaluator {
           let data1 = "";
           let data2 = "";
 
-          const regexSecondary =
-            XRE.matchRecursive(evalExp, "\\(", "\\)", "g").filter((match) =>
-              XRE.test(match, /⟶/)
-            )[0] ?? "";
-
-          if (regexSecondary) {
-            const parenthesesMatch = regexSecondary.match(/[⟶]/);
-            const parenthesesExp = parenthesesMatch?.input ?? "";
-            const pos = parenthesesMatch?.index ?? 0;
-            op = parenthesesMatch?.[0] ?? "";
-
-            [data1, data2] = [
-              parenthesesExp.substring(0, pos),
-              parenthesesExp.substring(pos + 1),
-            ];
-          } else if (PRIMARY_ORDER_OPERATIONS_REGEX.test(op)) {
+          if (PRIMARY_ORDER_OPERATIONS_REGEX.test(op)) {
             [data1, data2] = [
               getDataExpression(evalExp, pos - 1, "backward"),
               getDataExpression(evalExp, pos + 1, "forward"),
