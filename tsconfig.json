@@ -40,8 +40,14 @@
       "@@types/*": [
         "./src/types/*"
       ],
-      "@utils/*": [
-        "./src/utils/*"
+      "@functions/*": [
+        "./src/utils/functions/*"
+      ],
+      "@classes/*": [
+        "./src/utils/classes/*"
+      ],
+      "@constants/*": [
+        "./src/constants/*"
       ],
     }
   },
@@ -49,7 +55,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/constants/regexsts"
   ],
   "exclude": [
     "node_modules"

@@ -1,6 +1,6 @@
 import { EvaluateExpressionType, VariablesType } from "@@types/expression";
 
-export function evaluateExpression(expression: string): EvaluateExpressionType {
+function evaluateExpression(expression: string): EvaluateExpressionType {
   const separateExpression: Array<string> = [];
   const regex = /¬?\(([^()]*)\)/;
 
@@ -51,3 +51,5 @@ export function evaluateExpression(expression: string): EvaluateExpressionType {
 
   return { variables, separateExpression };
 }
+
+export { evaluateExpression };
