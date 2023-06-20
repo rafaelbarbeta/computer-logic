@@ -115,7 +115,7 @@ export class LogicEvaluator {
         let matchResult;
 
         while ((matchResult = evalExp.match(ALLOWED_OPERATIONS_REGEX))) {
-          let [op] = matchResult;
+          const [op] = matchResult;
           const pos = evalExp.indexOf(op);
 
           let data1 = "";
