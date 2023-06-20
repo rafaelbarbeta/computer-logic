@@ -33,6 +33,7 @@ export default function HomePage() {
                 width={0}
                 height={0}
                 className="w-full h-40"
+                priority
               />
             </div>
             <div className="flex flex-col text-center gap-5 py-5 px-2">
@@ -56,6 +57,7 @@ export default function HomePage() {
                 width={0}
                 height={0}
                 className="w-full h-40"
+                priority
               />
             </div>
             <div className="flex flex-col text-center gap-5 py-5 px-2">
@@ -79,6 +81,7 @@ export default function HomePage() {
                 width={0}
                 height={0}
                 className="w-full h-40"
+                priority
               />
             </div>
             <div className="flex flex-col text-center gap-5 py-5 px-2">
@@ -100,6 +103,7 @@ export default function HomePage() {
                 width={0}
                 height={0}
                 className="w-full h-40"
+                priority
               />
             </div>
             <div className="flex flex-col text-center gap-5 py-5 px-2">

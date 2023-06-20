@@ -1,10 +1,10 @@
 "use client";
 
 import { useExpressionContext } from "@/contexts/ExpressionContext";
+import { Input } from "@components/Input";
 import { Keyboard } from "@components/Keyboard";
 import { LogicInfo } from "@components/LogicInfo";
 import { Page } from "@components/Page";
-import { Search } from "@components/Search";
 import { TruthTable } from "@components/TruthTable";
 import { useEffect } from "react";
 
@@ -18,7 +18,7 @@ export default function CalculatorPage() {
 
   return (
     <Page className="flex items-center pt-20 pb-80 gap-10">
-      <Search />
+      <Input />
       {Object.keys(result.truthTable).length > 0 && (
         <>
           <TruthTable />

@@ -9,7 +9,7 @@ import { Button } from "../Button";
 
 const firaCode = Fira_Code({ subsets: ["latin"] });
 
-export function Search() {
+export function Input() {
   const { resolveLogic, setExpression, setResult } = useExpressionContext();
 
   function toggleKeyboard(state: "open" | "close") {
