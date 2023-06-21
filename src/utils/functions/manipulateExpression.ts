@@ -34,7 +34,7 @@ function isValidExpression(expression: string) {
 
   if (
     (expressionHasParentheses && parenthesesNotMatch) ||
-    /[A-Z)]+[¬∧·∨+⟶⟷⟹⟺⊕](?=[^A-Z0-1¬]+|$)|¬[^A-Z0-1¬(]|^¬$|(¬?[A-Z]){2,}|[A-Z]\(|\)[A-Z]/g.test(
+    /[A-Z)]+[¬∧·∨+⟶⟷⟹⟺⊕](?=[^A-Z0-1¬]+|$)|¬[^A-Z0-1¬(]|^¬$|(¬?[A-Z]){2,}|¬?[A-Z]\(|\)¬?[A-Z]/g.test(
       expression
     ) === true
   ) {
