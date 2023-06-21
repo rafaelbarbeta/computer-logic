@@ -28,4 +28,20 @@ function removeExternalParentheses(expression: string) {
   return { expressionNoParentheses, wasRemoved };
 }
 
-export { removeExternalParentheses };
+function isValidExpression(expression: string) {
+  const expressionHasParentheses = /[()]/.test(expression);
+  const parenthesesNotMatch = !checkParenthesesMatching(expression);
+
+  if (
+    (expressionHasParentheses && parenthesesNotMatch) ||
+    /[A-Z)]+[¬∧·∨+⟶⟷⟹⟺⊕](?=[^A-Z0-1¬]+|$)|¬[^A-Z0-1¬(]|^¬$|(¬?[A-Z]){2,}|[A-Z]\(|\)[A-Z]/g.test(
+      expression
+    ) === true
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+export { removeExternalParentheses, isValidExpression };

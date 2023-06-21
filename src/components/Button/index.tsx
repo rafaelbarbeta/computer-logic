@@ -22,10 +22,10 @@ export function Button({
   return (
     <button
       className={twMerge(
-        ` p-2 px-5 rounded-md ${
+        `p-2 px-5 rounded-md ${
           onlyIcon
             ? "hover:text-white transition-all hover:scale-110"
-            : "bg-slate-800 transition hover:bg-slate-700 "
+            : "bg-slate-800 "
         } ${className}`
       )}
       onClick={() => href && router.push(href)}

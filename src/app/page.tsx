@@ -1,5 +1,6 @@
 import { AnimatedTitle } from "@components/AnimatedTitle";
 import { Page } from "@components/Page";
+
 import { Fira_Code } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -66,7 +67,7 @@ export default function HomePage() {
               </h2>
               <p className="text-gray-300">
                 Forneça frases usando a linguagem natural humana e converta-as
-                para expressões lógicas proposicionais.
+                para expressões lógicas.
               </p>
             </div>
           </Link>
@@ -119,6 +120,21 @@ export default function HomePage() {
         </section>
       </div>
       <section className="mt-80"></section>
+      <footer className="flex justify-center items-center bg-slate-950 h-60 mt-[40rem]">
+        <Link
+          href="https://erikgabriel.vercel.app"
+          className="flex flex-col gap-5 justify-center items-center"
+        >
+          <Image
+            src="/erik_logo.svg"
+            alt="Erik Gabriel Logo"
+            width={50}
+            height={50}
+            style={{ width: 80, height: 80 }}
+          />
+          <p className="">Erik Gabriel &copy; 2023</p>
+        </Link>
+      </footer>
     </Page>
   );
 }

@@ -90,12 +90,16 @@ export class LogicEvaluator {
 
     let securityWhileFlag = 0;
 
-    allVariables.forEach((_var) => {
-      const variable = _var.replace(/^¬/, "");
-      result.truthTable[_var] = variables[variable].map((value) =>
-        _var[0] === "¬" ? (value ? 0 : 1) : value
-      );
-    });
+    try {
+      allVariables.forEach((_var) => {
+        const variable = _var.replace(/^¬/, "");
+        result.truthTable[_var] = variables[variable].map((value) =>
+          _var[0] === "¬" ? (value ? 0 : 1) : value
+        );
+      });
+    } catch (error) {
+      console.error(`Não foi possível resolver "${this.expression}"`);
+    }
 
     while (
       Object.keys(result.truthTable).length < separate.length &&

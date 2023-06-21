@@ -1,6 +1,7 @@
 "use client";
 
-import { ResultType } from "@/types/expression";
+import { isValidExpression } from "@/utils/functions/manipulateExpression";
+import { ResultType } from "@@types/expression";
 import { useExpressionContext } from "@contexts/ExpressionContext";
 import { ChevronRight } from "lucide-react";
 import { Fira_Code } from "next/font/google";
@@ -20,17 +21,17 @@ export function Input() {
   }
 
   async function handleResult() {
-    const input = document.querySelector(".search") as HTMLInputElement;
+    const input = document.querySelector(".input") as HTMLInputElement;
+    const button = document.querySelector(".input-btn") as HTMLButtonElement;
 
     const expression = input.value.toUpperCase() ?? "";
-
-    await resolveLogic(expression);
+    if (input.value && !button.disabled) await resolveLogic(expression);
 
     toggleKeyboard("close");
   }
 
   function insertInCursor(chr: string) {
-    const input = document.querySelector(".search") as HTMLInputElement;
+    const input = document.querySelector(".input") as HTMLInputElement;
 
     const start = input.selectionStart ?? 0;
     const end = input.selectionEnd ?? 0;
@@ -41,7 +42,7 @@ export function Input() {
   }
 
   function handleInputEntry(e: KeyboardEvent) {
-    const input = document.querySelector(".search") as HTMLInputElement;
+    const input = document.querySelector(".input") as HTMLInputElement;
 
     const shortcutsValues = [
       "AND",
@@ -55,7 +56,7 @@ export function Input() {
     ];
 
     const char = e.key;
-    const allowedChars = new RegExp("[A-Za-z0-1() +\b]+");
+    const allowedChars = new RegExp("[A-Za-z0-1()+\b]+");
     if (!char.match(allowedChars)) e.preventDefault();
 
     shortcutsValues.forEach((shortcut) => {
@@ -90,10 +91,26 @@ export function Input() {
         }
 
         const start = input.selectionStart ?? 0;
+
         input.value = input.value.toUpperCase().replace(shortcut, "");
         input.selectionStart = input.selectionEnd = start - shortcut.length;
       }
     });
+  }
+
+  function validateEntry() {
+    const input = document.querySelector(".input") as HTMLInputElement;
+    const button = document.querySelector(".input-btn") as HTMLButtonElement;
+
+    const isInvalid = !isValidExpression(input.value.toUpperCase());
+
+    setExpression(input.value);
+
+    input.style.borderColor = isInvalid ? "#993333" : "#1F2A3C";
+    button.style.backgroundColor = isInvalid ? "#993333" : "#1F2A3C";
+    button.disabled = isInvalid;
+
+    if (!isInvalid) handleResult();
   }
 
   return (
@@ -101,17 +118,20 @@ export function Input() {
       <input
         type="text"
         placeholder="Digite a expressão..."
-        className="search border-2 border-r-0 text-2xl uppercase placeholder:normal-case border-slate-800 outline-none bg-inherit p-5 px-8 w-1/2 rounded-l-lg"
-        onKeyUp={handleInputEntry}
+        className="input border-2 border-r-0 text-2xl uppercase placeholder:normal-case border-slate-800 outline-none bg-inherit p-5 px-8 w-1/2 rounded-l-lg"
+        onKeyUp={(e) => {
+          handleInputEntry(e);
+          validateEntry();
+        }}
         onKeyPress={handleInputEntry}
         onFocus={() => toggleKeyboard("open")}
         onChange={() => {
-          const input = document.querySelector(".search") as HTMLInputElement;
+          const input = document.querySelector(".input") as HTMLInputElement;
           setExpression(input.value);
           if (!input.value) setResult({ truthTable: {} } as ResultType);
         }}
       />
-      <Button className="rounded-s-none" onClick={handleResult}>
+      <Button className="input-btn rounded-s-none" onClick={handleResult}>
         <ChevronRight size={32} />
       </Button>
     </div>

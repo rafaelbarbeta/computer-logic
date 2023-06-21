@@ -7,7 +7,7 @@ import { Key } from "./Key";
 
 export function Keyboard() {
   function handleKeyPress(e: MouseEvent) {
-    const input = document.querySelector(".search") as HTMLInputElement;
+    const input = document.querySelector(".input") as HTMLInputElement;
     const key = (e.currentTarget as HTMLButtonElement).value;
 
     const start = input.selectionStart ?? 0;

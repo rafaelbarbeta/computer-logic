@@ -1,3 +1,8 @@
+import {
+  EQUIVALENCES_REGEX,
+  IMPLICATIONS_REGEX,
+  IMPL_EQUIV_REGEX,
+} from "@/constants/regex";
 import { useExpressionContext } from "@contexts/ExpressionContext";
 import { removeExternalParentheses } from "@functions/manipulateExpression";
 import { useEffect, useState } from "react";
@@ -19,10 +24,10 @@ export function LogicInfo() {
 
     if (parenthesis.length === 0) parenthesis.push("", "");
 
-    const implication = proposition?.replaceAll(/(?<!\([^()⟶]*)[⟶⟹]/g, "⟹");
+    const implication = proposition?.replaceAll(IMPLICATIONS_REGEX, "⟹");
     setImplication(`${parenthesis[0]}${implication}${parenthesis[1]}`);
 
-    const equivalence = proposition?.replaceAll(/(?<!\([^()⟷]*)[⟷⟺]/g, "⟺");
+    const equivalence = proposition?.replaceAll(EQUIVALENCES_REGEX, "⟺");
     setEquivalence(`${parenthesis[0]}${equivalence}${parenthesis[1]}`);
   }, [separateExpression]);
 
@@ -67,9 +72,9 @@ export function LogicInfo() {
           </tr>
         </tbody>
       </table>
-      {/(?<!\([^()⟶⟷]*)[⟶⟹⟷⟺]/g.test(proposition) && (
+      {IMPL_EQUIV_REGEX.test(proposition) && (
         <div className="flex flex-wrap gap-10">
-          {/(?<!\([^()⟶]*)[⟶⟹]/g.test(proposition) && (
+          {IMPLICATIONS_REGEX.test(proposition) && (
             <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
               <thead className="bg-slate-950/50">
                 <tr>
@@ -142,7 +147,7 @@ export function LogicInfo() {
               </tbody>
             </table>
           )}
-          {/(?<!\([^()⟷]*)[⟷⟺]/g.test(proposition) && (
+          {EQUIVALENCES_REGEX.test(proposition) && (
             <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
               <thead className="bg-slate-950/50">
                 <tr>

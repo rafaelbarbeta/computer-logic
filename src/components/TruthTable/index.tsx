@@ -31,7 +31,7 @@ export function TruthTable() {
                   "first:rounded-bl-lg last:rounded-br-lg"
                 }`}
               >
-                {result.truthTable[exp]![rowIndex]}
+                {result.truthTable[exp]?.[rowIndex]}
               </td>
             ))}
           </tr>

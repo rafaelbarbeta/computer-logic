@@ -12,8 +12,8 @@ export default function CalculatorPage() {
   const { expression, result } = useExpressionContext();
 
   useEffect(() => {
-    const searchInput = document.querySelector(".search") as HTMLInputElement;
-    searchInput.value = expression;
+    const input = document.querySelector(".input") as HTMLInputElement;
+    input.value = expression;
   }, [expression]);
 
   return (

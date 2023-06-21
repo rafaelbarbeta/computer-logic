@@ -16,13 +16,13 @@ export function Menu() {
       <Button href="/table" onlyIcon>
         <Calculator size={32} />
       </Button>
-      <Button onlyIcon>
+      <Button href="/language" onlyIcon>
         <WholeWord size={32} />
       </Button>
-      <Button onlyIcon>
+      <Button href="/help" onlyIcon>
         <HelpCircle size={32} />
       </Button>
-      <Button onlyIcon>
+      <Button href="/config" onlyIcon>
         <Settings size={32} />
       </Button>
     </menu>
