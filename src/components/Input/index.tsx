@@ -56,7 +56,7 @@ export function Input() {
     ];
 
     const char = e.key;
-    const allowedChars = new RegExp("[A-Za-z0-1()+\b]+");
+    const allowedChars = new RegExp("[A-Za-z()+\b]+");
     if (!char.match(allowedChars)) e.preventDefault();
 
     shortcutsValues.forEach((shortcut) => {
