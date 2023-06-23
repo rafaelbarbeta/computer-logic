@@ -1,3 +1,12 @@
+import {
+  IMPLICIT_AND,
+  INCOMPLETE_NOT_OP,
+  LEFT_INCOMPLETE_OP,
+  ONLY_OP,
+  PARENTHESES_OP,
+  RIGHT_INCOMPLETE_OP,
+} from "@constants/regex";
+
 function checkParenthesesMatching(expression: string) {
   const stack = [];
   for (let char of expression) {
@@ -32,11 +41,14 @@ function isValidExpression(expression: string) {
   const expressionHasParentheses = /[()]/.test(expression);
   const parenthesesNotMatch = !checkParenthesesMatching(expression);
 
+  const MALFORMED_EXPRESSION_REGEX = new RegExp(
+    `${ONLY_OP}|${RIGHT_INCOMPLETE_OP}|${LEFT_INCOMPLETE_OP}|${INCOMPLETE_NOT_OP}|${IMPLICIT_AND}|${PARENTHESES_OP}`,
+    "g"
+  );
+
   if (
     (expressionHasParentheses && parenthesesNotMatch) ||
-    /[A-Z)]+[¬∧·∨+⟶⟷⟹⟺⊕](?=[^A-Z0-1¬]+|$)|¬[^A-Z¬(]|^¬$|(¬?[A-Z]){2,}|¬?[A-Z]\(|\)¬?[A-Z]/g.test(
-      expression
-    ) === true
+    MALFORMED_EXPRESSION_REGEX.test(expression)
   ) {
     return false;
   }
