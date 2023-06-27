@@ -10,12 +10,6 @@ export const IMPL_EQUIV_REGEX = /(?<!\([^()⟶⟷]*)[⟶⟹⟷⟺]/g;
 
 export const INTERNAL_PARENTHESES_REGEX = /\([^()]*[)][^()]*(?=\))/g;
 
-export const FND_REGEX =
-  /^(?:\([^()⟶⟷⟹⟺∨]+(?:∧[^()⟶⟷⟹⟺∨]+)*\))(?:∨(?:\([^()⟶⟷⟹⟺∨]+(?:∧[^()⟶⟷⟹⟺∨]+)*\)))*$/gm;
-
-export const FNC_REGEX =
-  /^(?:\([^()⟶⟷⟹⟺∧]+(?:∨[^()⟶⟷⟹⟺∧]+)*\))(?:∧(?:\([^()⟶⟷⟹⟺∧]+(?:∨[^()⟶⟷⟹∧]+)*\)))*$/gm;
-
 // Malformed expression regex parts
 export const ONLY_OP = "^[¬∧·∨+⟶⟷⟹⟺⊕]$";
 export const RIGHT_INCOMPLETE_OP = "[A-Z)][∧·∨+⟶⟷⟹⟺⊕](?=[^A-Z¬(]+|$)";

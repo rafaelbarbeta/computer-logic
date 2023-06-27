@@ -6,8 +6,6 @@ import {
 import {
   ALLOWED_OPERATIONS_REGEX,
   EQUIVALENCES_REGEX,
-  FNC_REGEX,
-  FND_REGEX,
   IMPLICATIONS_REGEX,
   INTERNAL_PARENTHESES_REGEX,
   PRIMARY_ORDER_OPERATIONS_REGEX,
@@ -283,6 +281,12 @@ export class LogicEvaluator {
     }
 
     //? Is FND/FNC
+    const FND_REGEX =
+      /^(?:\([^()⟶⟷⟹⟺∨]+(?:∧[^()⟶⟷⟹⟺∨]+)*\))(?:∨(?:\([^()⟶⟷⟹⟺∨]+(?:∧[^()⟶⟷⟹⟺∨]+)*\)))*$/gm;
+
+    const FNC_REGEX =
+      /^(?:\([^()⟶⟷⟹⟺∧]+(?:∨[^()⟶⟷⟹⟺∧]+)*\))(?:∧(?:\([^()⟶⟷⟹⟺∧]+(?:∨[^()⟶⟷⟹∧]+)*\)))*$/gm;
+
     form === "FND"
       ? (result.normalForm.fnd.isFND = FND_REGEX.test(expressionFlat))
       : (result.normalForm.fnc.isFNC = FNC_REGEX.test(expressionFlat));

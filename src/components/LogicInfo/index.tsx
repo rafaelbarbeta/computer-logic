@@ -1,8 +1,4 @@
-import {
-  EQUIVALENCES_REGEX,
-  IMPLICATIONS_REGEX,
-  IMPL_EQUIV_REGEX,
-} from "@/constants/regex";
+import { EQUIVALENCES_REGEX, IMPLICATIONS_REGEX } from "@/constants/regex";
 import { useExpressionContext } from "@contexts/ExpressionContext";
 import { removeExternalParentheses } from "@functions/manipulateExpression";
 import { useEffect, useState } from "react";
@@ -65,14 +61,14 @@ export function LogicInfo() {
         </thead>
         <tbody>
           <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
-            <td className="px-6 py-3 ">
+            <td className="px-6 py-3">
               A proposição {proposition} é uma{" "}
               <span className="font-bold">{result.propositionalForm}</span>
             </td>
           </tr>
         </tbody>
       </table>
-      {IMPL_EQUIV_REGEX.test(proposition) && (
+      {/(?<!\([^()⟶⟷]*)[⟶⟹⟷⟺]/g.test(proposition) && (
         <div className="flex flex-wrap gap-10">
           {IMPLICATIONS_REGEX.test(proposition) && (
             <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
@@ -147,7 +143,7 @@ export function LogicInfo() {
               </tbody>
             </table>
           )}
-          {EQUIVALENCES_REGEX.test(proposition) && (
+          {/(?<!\([^()⟷]*)[⟷⟺]/g.test(proposition) && (
             <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
               <thead className="bg-slate-950/50">
                 <tr>
