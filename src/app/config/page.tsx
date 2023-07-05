@@ -1,24 +1,11 @@
-"use client";
+"use client"
 
-import { RadioButton } from "@/components/RadioButton";
-import { ToggleButton } from "@/components/ToggleButton";
-import { ConfigType } from "@@types/config";
-import { ConfigItem } from "@components/ConfigItem";
-import { Page } from "@components/Page";
-import { CONFIG_DEFAULT } from "@constants/config";
-import { useEffect, useState } from "react";
+import { RadioButtonGroup } from "@/components/RadioButtonGroup"
+import { ToggleButton } from "@/components/ToggleButton"
+import { ConfigItem } from "@components/ConfigItem"
+import { Page } from "@components/Page"
 
 export default function ConfigPage() {
-  const [config, setConfig] = useState<ConfigType>();
-
-  useEffect(() => {
-    const config = JSON.parse(
-      localStorage.getItem("@logic:config") ?? JSON.stringify(CONFIG_DEFAULT)
-    ) as ConfigType;
-
-    if (config) setConfig(config);
-  }, []);
-
   return (
     <Page className="flex gap-10 h-full pt-20 px-20">
       <h1 className="text-2xl font-bold">Configurações</h1>
@@ -34,20 +21,11 @@ export default function ConfigPage() {
           description="Mudar a representação dos valores lógicos na tabela."
         >
           <div className="flex gap-10 items-center">
-            <RadioButton
-              id="number"
+            <RadioButtonGroup
+              radiosId={["number", "letter"]}
+              labels={["0 / 1", "F / V"]}
               name="tableValue"
-              checked={config?.tableValue === "number"}
-            >
-              0 / 1
-            </RadioButton>
-            <RadioButton
-              id="letter"
-              name="tableValue"
-              checked={config?.tableValue === "letter"}
-            >
-              F / V
-            </RadioButton>
+            />
           </div>
         </ConfigItem>
         <ConfigItem
@@ -55,10 +33,10 @@ export default function ConfigPage() {
           description="Calcular resultado de uma expressão válida automaticamente"
         >
           <div className="flex gap-10 items-center">
-            <ToggleButton name="automatic" on={config?.automatic} />
+            <ToggleButton name="automatic" />
           </div>
         </ConfigItem>
       </div>
     </Page>
-  );
+  )
 }

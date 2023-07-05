@@ -1,31 +1,48 @@
-import { EQUIVALENCES_REGEX, IMPLICATIONS_REGEX } from "@/constants/regex";
-import { useExpressionContext } from "@contexts/ExpressionContext";
-import { removeExternalParentheses } from "@functions/manipulateExpression";
-import { useEffect, useState } from "react";
+import { ConfigType } from "@@types/config"
+import { TruthTableType } from "@@types/expression"
+import { CONFIG_DEFAULT } from "@constants/config"
+import { EQUIVALENCES_REGEX, IMPLICATIONS_REGEX } from "@constants/regex"
+import { useExpressionContext } from "@contexts/ExpressionContext"
+import { removeExternalParentheses } from "@functions/manipulateExpression"
+import { useEffect, useState } from "react"
 
 export function LogicInfo() {
-  const { separateExpression, result } = useExpressionContext();
+  const { separateExpression, result } = useExpressionContext()
 
-  const [proposition, setProposition] = useState("");
-  const [implication, setImplication] = useState("");
-  const [equivalence, setEquivalence] = useState("");
+  const [truthTable, setTruthTable] = useState<TruthTableType>()
+  const [proposition, setProposition] = useState("")
+  const [implication, setImplication] = useState("")
+  const [equivalence, setEquivalence] = useState("")
 
   useEffect(() => {
-    let proposition = separateExpression.at(-1) ?? "";
-    setProposition(proposition);
+    const config: ConfigType = JSON.parse(
+      localStorage.getItem("@logic:config") ?? JSON.stringify(CONFIG_DEFAULT)
+    )
 
-    const parenthesis: string[] = [];
-    proposition =
-      removeExternalParentheses(proposition).expressionNoParentheses;
+    const table: TruthTableType = { ...result.truthTable }
 
-    if (parenthesis.length === 0) parenthesis.push("", "");
+    if (config.tableValue === "letter") {
+      for (const key in result.truthTable) {
+        table[key] = result.truthTable[key]!.map((value) => (value ? "V" : "F"))
+      }
+    }
 
-    const implication = proposition?.replaceAll(IMPLICATIONS_REGEX, "⟹");
-    setImplication(`${parenthesis[0]}${implication}${parenthesis[1]}`);
+    setTruthTable(table)
 
-    const equivalence = proposition?.replaceAll(EQUIVALENCES_REGEX, "⟺");
-    setEquivalence(`${parenthesis[0]}${equivalence}${parenthesis[1]}`);
-  }, [separateExpression]);
+    let proposition = separateExpression.at(-1) ?? ""
+    setProposition(proposition)
+
+    const parenthesis: string[] = []
+    proposition = removeExternalParentheses(proposition).expressionNoParentheses
+
+    if (parenthesis.length === 0) parenthesis.push("", "")
+
+    const implication = proposition?.replaceAll(IMPLICATIONS_REGEX, "⟹")
+    setImplication(`${parenthesis[0]}${implication}${parenthesis[1]}`)
+
+    const equivalence = proposition?.replaceAll(EQUIVALENCES_REGEX, "⟺")
+    setEquivalence(`${parenthesis[0]}${equivalence}${parenthesis[1]}`)
+  }, [separateExpression, result.truthTable])
 
   return (
     <div className="w-[55%] flex flex-col gap-10">
@@ -42,7 +59,7 @@ export function LogicInfo() {
         </thead>
         <tbody>
           <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
-            {result.truthTable[proposition]?.map((value, i) => (
+            {truthTable?.[proposition]?.map((value, i) => (
               <td key={i} className="py-3">
                 {value}
               </td>
@@ -347,5 +364,5 @@ export function LogicInfo() {
         </table>
       </div>
     </div>
-  );
+  )
 }
