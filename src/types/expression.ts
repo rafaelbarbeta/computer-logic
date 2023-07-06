@@ -7,7 +7,7 @@ export type TruthTableType = {
 }
 
 export type ResultType = {
-  truthTable: { [key: string]: number[] | string[] | null }
+  truthTable: { [key: string]: number[] | null }
   propositionalForm: "Tautologia" | "Contradição" | "Contingência"
   logicalImplication: {
     implication: boolean
