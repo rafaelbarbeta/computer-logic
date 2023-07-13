@@ -45,9 +45,9 @@ export function LogicInfo() {
   }, [separateExpression, result.truthTable])
 
   return (
-    <div className="w-[55%] flex flex-col gap-10">
-      <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">
-        <thead className="bg-slate-950/50">
+    <div className="max-w-[85%] flex flex-col gap-10">
+      <table className="block text-gray-300 border border-slate-800 border-separate rounded-lg">
+        <thead className="bg-slate-950/50 flex justify-center">
           <tr>
             <th
               colSpan={Object.values(result.truthTable)[0]?.length}
@@ -57,15 +57,17 @@ export function LogicInfo() {
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
-            {truthTable?.[proposition]?.map((value, i) => (
-              <td key={i} className="py-3">
-                {value}
-              </td>
-            ))}
-          </tr>
-        </tbody>
+        <div className="overflow-auto rounded-lg w-full">
+          <tbody className="table text-center w-full">
+            <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
+              {truthTable?.[proposition]?.map((value, i) => (
+                <td key={i} className="px-6 py-3">
+                  {value}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </div>
       </table>
 
       <table className="text-center w-full text-gray-300 border border-slate-800 border-separate rounded-lg">

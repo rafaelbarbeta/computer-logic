@@ -1,35 +1,35 @@
-"use client";
+"use client"
 
-import { ArrowLeft, ArrowRight, Delete } from "lucide-react";
-import Image from "next/image";
-import { MouseEvent } from "react";
-import { Key } from "./Key";
+import { ArrowLeft, ArrowRight, Delete } from "lucide-react"
+import Image from "next/image"
+import { MouseEvent } from "react"
+import { Key } from "./Key"
 
 export function Keyboard() {
   function handleKeyPress(e: MouseEvent) {
-    const input = document.querySelector(".input") as HTMLInputElement;
-    const key = (e.currentTarget as HTMLButtonElement).value;
+    const input = document.querySelector(".input") as HTMLInputElement
+    const key = (e.currentTarget as HTMLButtonElement).value
 
-    const start = input.selectionStart ?? 0;
-    const end = input.selectionEnd ?? 0;
+    const start = input.selectionStart ?? 0
+    const end = input.selectionEnd ?? 0
 
     if (key === "delete") {
-      input.value = input.value.slice(0, start - 1) + input.value.slice(end);
-      input.focus();
-      input.selectionStart = input.selectionEnd = start - 1;
+      input.value = input.value.slice(0, start - 1) + input.value.slice(end)
+      input.focus()
+      input.selectionStart = input.selectionEnd = start - 1
     } else if (key === "<" || key === ">") {
-      input.focus();
+      input.focus()
       input.selectionStart = input.selectionEnd =
-        key === "<" ? start - 1 : start + 1;
+        key === "<" ? start - 1 : start + 1
     } else {
-      input.value = input.value.slice(0, start) + key + input.value.slice(end);
-      input.focus();
-      input.selectionStart = input.selectionEnd = start + key.length;
+      input.value = input.value.slice(0, start) + key + input.value.slice(end)
+      input.focus()
+      input.selectionStart = input.selectionEnd = start + key.length
     }
   }
 
   return (
-    <div className="keyboard fixed flex justify-center items-center bottom-0 transition-all duration-300 h-72 w-2/6 bg-slate-800 rounded-t-lg shadow-md">
+    <div className="keyboard fixed flex justify-center items-center bottom-0 transition-all duration-300 h-72 bg-slate-800 rounded-t-lg shadow-md">
       <div className="grid grid-rows-3 grid-cols-5 gap-5 items-center justify-items-center p-10">
         <Key onClick={handleKeyPress} value="∧">
           <Image
@@ -150,5 +150,5 @@ export function Keyboard() {
         </Key>
       </div>
     </div>
-  );
+  )
 }
