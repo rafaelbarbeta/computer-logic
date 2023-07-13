@@ -1,23 +1,23 @@
-import { Info } from "lucide-react";
-import { ReactNode, useState } from "react";
+import { Info } from "lucide-react"
+import { ReactNode, useState } from "react"
 
 type InfoButtonProps = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 export function InfoButton({ children }: InfoButtonProps) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
   function handleToggleModal() {
-    const body = document.querySelector("body") as HTMLBodyElement;
-    body.classList.toggle("overflow-hidden");
-    setModalIsOpen(!modalIsOpen);
+    const body = document.querySelector("body") as HTMLBodyElement
+    body.classList.toggle("overflow-hidden")
+    setModalIsOpen(!modalIsOpen)
   }
 
   return (
     <>
       <button
-        className="absolute right-32 mt-5 p-3 rounded-full"
+        className="max-xl:right-10 max-sm:hidden absolute right-32 mt-5 p-3 rounded-full"
         onClick={handleToggleModal}
       >
         <Info size={30} />
@@ -36,5 +36,5 @@ export function InfoButton({ children }: InfoButtonProps) {
         </>
       )}
     </>
-  );
+  )
 }

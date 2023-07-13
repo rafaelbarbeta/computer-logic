@@ -124,7 +124,7 @@ export function Input() {
       <input
         type="text"
         placeholder="Digite a expressão..."
-        className="input border-2 border-r-0 text-2xl uppercase placeholder:normal-case border-slate-800 outline-none bg-inherit p-5 px-8 w-1/2 rounded-l-lg"
+        className="input border-2 border-r-0 text-2xl uppercase placeholder:normal-case border-slate-800 outline-none bg-inherit p-5 px-8 w-1/2 max-sm:w-9/12 max-sm:placeholder:text-xl rounded-l-lg"
         onKeyUp={(e) => {
           handleInputEntry(e)
           validateEntry()
