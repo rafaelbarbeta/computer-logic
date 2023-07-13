@@ -1,15 +1,9 @@
-import {
-  Calculator,
-  HelpCircle,
-  Home,
-  Settings,
-  WholeWord,
-} from "lucide-react";
-import { Button } from "../Button";
+import { Calculator, HelpCircle, Home, Settings, WholeWord } from "lucide-react"
+import { Button } from "../Button"
 
 export function Menu() {
   return (
-    <menu className="bg-slate-800 w-24 h-screen fixed left-0 flex flex-col justify-center items-center gap-5 shadow-lg">
+    <menu className="bg-slate-800 w-24 h-screen fixed left-0 md:flex flex-col justify-center items-center gap-5 shadow-lg hidden">
       <Button href="/" onlyIcon>
         <Home size={32} />
       </Button>
@@ -26,5 +20,5 @@ export function Menu() {
         <Settings size={32} />
       </Button>
     </menu>
-  );
+  )
 }
