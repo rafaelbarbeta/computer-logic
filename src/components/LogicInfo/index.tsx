@@ -58,7 +58,7 @@ export function LogicInfo() {
           </tr>
         </thead>
         <div className="overflow-auto rounded-lg w-full">
-          <tbody className="table text-center w-full">
+          <div className="table text-center w-full">
             <tr className="even:bg-slate-800/30 odd:bg-slate-800/50 border-slate-800">
               {truthTable?.[proposition]?.map((value, i) => (
                 <td key={i} className="px-6 py-3">
@@ -66,7 +66,7 @@ export function LogicInfo() {
                 </td>
               ))}
             </tr>
-          </tbody>
+          </div>
         </div>
       </table>
 
@@ -249,40 +249,44 @@ export function LogicInfo() {
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr className="bg-slate-800/50 border-slate-800">
-              <td className="px-6 py-3 bg-slate-900/50">Recíproca</td>
-              <td className="px-6 py-3">
+          <div className="flex flex-col gap-1">
+            <div className="bg-slate-800/50 border-slate-800 flex max-lg:flex-wrap">
+              <h3 className="px-6 py-3 bg-slate-900/50 h-auto flex items-center justify-center w-7/12 max-lg:w-full">
+                Recíproca
+              </h3>
+              <p className="px-6 py-3 w-full">
                 A proposição <b>recíproca</b> de <i>{proposition}</i> é <br />
                 <span className="font-bold">
                   {result.conditionalPropositions.reciprocal}
                 </span>
-              </td>
-            </tr>
+              </p>
+            </div>
 
-            <tr className="bg-slate-800/50 border-slate-800">
-              <td className="px-6 py-3 bg-slate-900/50">Contrária</td>
-              <td className="px-6 py-3">
+            <div className="bg-slate-800/50 border-slate-800 flex max-lg:flex-wrap">
+              <h3 className="px-6 py-3 bg-slate-900/50 h-auto flex items-center justify-center w-7/12 max-lg:w-full">
+                Contrária
+              </h3>
+              <p className="px-6 py-3 w-full">
                 A proposição <b>contrária</b> de <i>{proposition}</i> é <br />
                 <span className="font-bold">
                   {result.conditionalPropositions.contrary}
                 </span>
-              </td>
-            </tr>
+              </p>
+            </div>
 
-            <tr className="bg-slate-800/50 border-slate-800">
-              <td className="px-6 py-3 bg-slate-900/50">
+            <div className="bg-slate-800/50 border-slate-800 flex max-lg:flex-wrap">
+              <h3 className="px-6 py-3 bg-slate-900/50 h-auto flex items-center justify-center w-7/12 max-lg:w-full">
                 Contra-positiva ou recíproca da contraria
-              </td>
-              <td className="px-6 py-3">
+              </h3>
+              <p className="px-6 py-3 w-full">
                 A proposição <b>contra-positiva</b> de <i>{proposition}</i> é{" "}
                 <br />
                 <span className="font-bold">
                   {result.conditionalPropositions.contrapositive}
                 </span>
-              </td>
-            </tr>
-          </tbody>
+              </p>
+            </div>
+          </div>
         </table>
       )}
 

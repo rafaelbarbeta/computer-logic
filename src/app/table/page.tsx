@@ -19,7 +19,7 @@ export default function CalculatorPage() {
   }, [expression])
 
   return (
-    <Page className="flex items-center pt-20 pb-80 gap-10">
+    <Page className="flex items-center pt-20 md:pb-80 pb-20 gap-10">
       <Input />
       <InfoButton>
         <TableInfoModal />
