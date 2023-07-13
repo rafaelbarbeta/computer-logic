@@ -29,7 +29,7 @@ export function InfoButton({ children }: InfoButtonProps) {
             onClick={handleToggleModal}
           />
           <div className="fixed top-1/2 max-xl:top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/3 max-xl:w-5/6 max-xl:h-full z-10">
-            <div className="bg-slate-800 flex flex-col justify-center max-h-[90%] p-10 rounded-lg shadow-xl overflow-auto">
+            <div className="bg-slate-800 flex flex-col max-h-[90%] p-10 rounded-lg shadow-xl overflow-auto">
               {children}
             </div>
           </div>
