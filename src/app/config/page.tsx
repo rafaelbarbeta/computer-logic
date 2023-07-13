@@ -7,7 +7,7 @@ import { Page } from "@components/Page"
 
 export default function ConfigPage() {
   return (
-    <Page className="flex gap-10 h-full pt-20 px-20">
+    <Page className="flex gap-10 h-full pt-20 px-20 max-sm:px-10">
       <h1 className="text-2xl font-bold">Configurações</h1>
       <div className="flex flex-col gap-5 ">
         <div className="flex flex-col gap-3 divide-y divide-y-reverse divide-slate-400/25">

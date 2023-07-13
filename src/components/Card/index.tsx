@@ -10,12 +10,13 @@ interface CardProps {
     bgColor: string
     src: string
   }
+  link: string
 }
 
-export function Card({ children, title, image }: CardProps) {
+export function Card({ children, title, image, link }: CardProps) {
   return (
     <Link
-      href="/table"
+      href={link}
       className="xl:w-1/5 lg:w-[40%] md:w-4/6 w-full cursor-pointer hover:scale-[1.05] transition-all duration-300"
     >
       <div

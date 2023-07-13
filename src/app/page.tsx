@@ -30,6 +30,7 @@ export default function HomePage() {
               bgColor: "bg-green-500",
               src: "/illustrations/calculator.svg",
             }}
+            link="/table"
           >
             Forneça expressões lógicas e veja qual é sua tabela-verdade, sua
             forma proposicional e outras informações.
@@ -40,6 +41,7 @@ export default function HomePage() {
               bgColor: "bg-cyan-500",
               src: "/illustrations/natural language.svg",
             }}
+            link="/language"
           >
             Forneça frases usando a linguagem natural humana e converta-as para
             expressões lógicas.
@@ -50,6 +52,7 @@ export default function HomePage() {
               bgColor: "bg-red-400",
               src: "/illustrations/help.svg",
             }}
+            link="help"
           >
             Precisa de ajuda? Conheça um pouco da teoria por trás do assunto e
             entenda o que cada ferramenta faz.
@@ -60,6 +63,7 @@ export default function HomePage() {
               bgColor: "bg-yellow-500 ",
               src: "/illustrations/settings.svg",
             }}
+            link="config"
           >
             Configure algumas opções do sistema de acordo com a sua preferência
             ou necessidade.
