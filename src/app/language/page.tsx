@@ -1,11 +1,10 @@
+import { Draggable } from "@components/Draggable"
 import { Page } from "@components/Page"
 
 export default function LanguagePage() {
   return (
-    <Page className="flex h-full justify-center items-center">
-      <h1 className="text-lg text-center">
-        Desculpe, parece que essa página está em construção!
-      </h1>
+    <Page className="h-full overflow-hidden">
+      <Draggable id="draggable">Drag me</Draggable>
     </Page>
   )
 }

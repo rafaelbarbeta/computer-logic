@@ -1,0 +1,52 @@
+.Draggable {
+  @apply relative flex flex-col items-center transition-transform duration-[250ms] ease-[ease] w-fit;
+}
+
+.Draggable > div {
+  transform: translate3d(var(--translate-x, 0), var(--translate-y, 0), 0)
+    scale(var(--scale, 1));
+  box-shadow: var(--box-shadow);
+  transition: box-shadow 300ms ease;
+}
+
+.Draggable:not(.handle)
+  > div:focus-visible:not(.active .Draggable:not(.handle) > div) {
+  @apply shadow-[0_0_0_3px_#4c9ffe];
+}
+
+.Draggable label {
+  @apply absolute top-14 block shrink transition-opacity duration-500 animate-[pulse] w-fit ease-out text-center text-base text-slate-500 select-none py-2.5;
+}
+
+.Draggable.dragging {
+  @apply z-[1] transition-none;
+}
+
+.Draggable.dragging * {
+  @apply cursor-grabbing;
+}
+
+.Draggable.dragging > div {
+  --box-shadow: 0px 15px 15px 0 rgba(11, 10, 22, 0.25);
+  --scale: 1.06;
+}
+
+.Draggable.dragging label {
+  @apply animate-none opacity-0;
+}
+.Draggable.dragOverlay > div,
+.Draggable.dragging > div {
+  @apply animate-[pop_250ms_cubic-bezier(0.18,0.67,0.6,1.22)];
+}
+
+@keyframes pop {
+  from {
+    transform: translate3d(var(--translate-x, 0), var(--translate-y, 0), 0)
+      scale(1);
+  }
+  to {
+    transform: translate3d(var(--translate-x, 0), var(--translate-y, 0), 0)
+      scale(var(--scale));
+    box-shadow: var(--box-shadow);
+  }
+}
