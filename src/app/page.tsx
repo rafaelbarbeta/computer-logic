@@ -28,7 +28,7 @@ export default function HomePage() {
             title="Tabela-Verdade"
             image={{
               bgColor: "bg-green-500",
-              src: "/illustrations/calculator.svg",
+              src: "/logicapp/illustrations/calculator.svg",
             }}
             link="/table"
           >
@@ -39,7 +39,7 @@ export default function HomePage() {
             title="Linguagem Natural"
             image={{
               bgColor: "bg-cyan-500",
-              src: "/illustrations/natural language.svg",
+              src: "/logicapp/illustrations/natural language.svg",
             }}
             link="/language"
           >
@@ -50,9 +50,9 @@ export default function HomePage() {
             title="Ajuda"
             image={{
               bgColor: "bg-red-400",
-              src: "/illustrations/help.svg",
+              src: "/logicapp/illustrations/help.svg",
             }}
-            link="help"
+            link="/help"
           >
             Precisa de ajuda? Conheça um pouco da teoria por trás do assunto e
             entenda o que cada ferramenta faz.
@@ -61,9 +61,9 @@ export default function HomePage() {
             title="Configurações"
             image={{
               bgColor: "bg-yellow-500 ",
-              src: "/illustrations/settings.svg",
+              src: "/logicapp/illustrations/settings.svg",
             }}
-            link="config"
+            link="/config"
           >
             Configure algumas opções do sistema de acordo com a sua preferência
             ou necessidade.

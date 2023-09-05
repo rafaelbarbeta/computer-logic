@@ -33,7 +33,7 @@ export function Keyboard() {
       <div className="grid grid-rows-3 grid-cols-5 gap-5 items-center justify-items-center p-10">
         <Key onClick={handleKeyPress} value="∧">
           <Image
-            src="/assets/and.png"
+            src="/logicapp/assets/and.png"
             alt="AND operation"
             height={24}
             width={24}
@@ -42,7 +42,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="∨">
           <Image
-            src="/assets/or.png"
+            src="/logicapp/assets/or.png"
             alt="OR operation"
             height={24}
             width={24}
@@ -51,7 +51,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="·">
           <Image
-            src="/assets/and-alt.png"
+            src="/logicapp/assets/and-alt.png"
             alt="AND alt operation"
             height={24}
             width={24}
@@ -60,7 +60,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="+">
           <Image
-            src="/assets/or-alt.png"
+            src="/logicapp/assets/or-alt.png"
             alt="OR operation"
             height={24}
             width={24}
@@ -69,7 +69,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="(" actionKey>
           <Image
-            src="/assets/left-parenthesis.png"
+            src="/logicapp/assets/left-parenthesis.png"
             alt="Left parenthesis"
             height={24}
             width={24}
@@ -78,7 +78,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="⟶">
           <Image
-            src="/assets/conditional.png"
+            src="/logicapp/assets/conditional.png"
             alt="Conditional operation"
             height={24}
             width={24}
@@ -87,7 +87,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="⟷">
           <Image
-            src="/assets/biconditional.png"
+            src="/logicapp/assets/biconditional.png"
             alt="Biconditional operation"
             height={24}
             width={24}
@@ -96,7 +96,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="⟹">
           <Image
-            src="/assets/implication.png"
+            src="/logicapp/assets/implication.png"
             alt="Implication operation"
             height={24}
             width={24}
@@ -105,7 +105,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="⟺">
           <Image
-            src="/assets/equivalence.png"
+            src="/logicapp/assets/equivalence.png"
             alt="Equivalence operation"
             height={24}
             width={24}
@@ -114,7 +114,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value=")" actionKey>
           <Image
-            src="/assets/right-parenthesis.png"
+            src="/logicapp/assets/right-parenthesis.png"
             alt="Right parenthesis"
             height={24}
             width={24}
@@ -123,7 +123,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="¬">
           <Image
-            src="/assets/not.png"
+            src="/logicapp/assets/not.png"
             alt="Not operation"
             height={24}
             width={24}
@@ -132,7 +132,7 @@ export function Keyboard() {
         </Key>
         <Key onClick={handleKeyPress} value="⊕">
           <Image
-            src="/assets/xor.png"
+            src="/logicapp/assets/xor.png"
             alt="XOR operation"
             height={24}
             width={24}

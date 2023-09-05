@@ -6,6 +6,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  basePath: '/logicapp',
 };
 
 module.exports = nextConfig;

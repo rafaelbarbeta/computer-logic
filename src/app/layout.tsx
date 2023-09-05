@@ -10,7 +10,7 @@ export const metadata = {
   title: "Lógica Computacional",
   description: "Calculadora de lógica computacional",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/teste/favicon.svg",
   },
 }
 
@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <Head>
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href="/teste/favicon.svg" />
       </Head>
       <body className={inter.className}>
         <ExpressionContextProvider>
