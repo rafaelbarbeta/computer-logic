@@ -77,7 +77,7 @@ export default function HomePage() {
           className="flex flex-col gap-5 justify-center items-center"
         >
           <Image
-            src="/erik_logo.svg"
+            src="/logicapp/erik_logo.svg"
             alt="Erik Gabriel Logo"
             width={50}
             height={50}
